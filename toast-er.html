@@ -1,0 +1,165 @@
+<!--
+@license
+Copyright 2015 Mason Louchart
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../iron-signals/iron-signals.html">
+
+<!--
+Polymer toast with some extra features.
+
+Example:
+
+    <template id="app" is="dom-bind">
+      <toast-er></toast-er>
+    </template>
+
+    <script>
+    function someMethod() {
+      app.fire('iron-signal', {
+        name: 'toaster-eject',
+        data: {
+          text: 'You are not allowed to do this.',
+          type: 'error',
+          duration: 5000
+        }
+      });
+    }
+    </script>
+
+Audited events:
+
+Event name | Method called | Description
+:--|:--|:--
+`iron-signal-toaster-eject` | `_eject` | Shows the toast with received data
+
+@element toast-er
+@demo
+@demo https://LM450N.github.io/toast-er/components/toast-er/demo/
+@blurb Polymer toast with some extra features.
+@homepage https://LM450N.github.io/toast-er/components/toast-er/
+-->
+<dom-module id="toast-er">
+  <style>
+  :host {
+    display: block;
+    box-sizing: border-box;
+    border-bottom: none;
+  }
+  .info {
+    border-bottom: 5px solid rgb(0, 186, 255);
+  }
+  .success {
+    border-bottom: 5px solid rgb(11, 219, 0);
+  }
+  .warning {
+    border-bottom: 5px solid rgb(255, 168, 0);
+  }
+  .error {
+    border-bottom: 5px solid rgb(251, 0, 0);
+  }
+  </style>
+
+  <template>
+    <paper-toast id="toast"></paper-toast>
+    <iron-signals on-iron-signal-toaster-eject="_eject"></iron-signals>
+  </template>
+
+  <script>
+  (function() {
+    Polymer({
+
+      is: 'toast-er',
+
+      properties: {
+        /**
+         * Stack of breads.
+         *
+         * @type {Array}
+         */
+        _breads: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+
+        /**
+         * Default duration.
+         *
+         * @type {Number}
+         * @default 3000
+         */
+        _duration: {
+          type: Number,
+          readOnly: true,
+          value: 3000
+        }
+      },
+
+      /**
+       * Shows the toast then `_emptyTheToaster`.
+       *
+       * @param {Object} event  iron-signal-toaster-eject
+       * @param {Object} detail can contains `text` {String}, `type` {String}
+       * and `duration` {Number}
+       */
+      _eject: function(event, detail) {
+        if (detail.text && detail.text.trim().length) {
+          this.push('_breads', detail);
+          this._emptyTheToaster();
+        }
+      },
+
+      /**
+       * Shows message by unstacking of toasts.
+       */
+      _emptyTheToaster: function() {
+        if (!this._breads.length) {
+          return;
+        }
+        var bread = this._breads[0],
+          duration = bread.duration || this._duration;
+        if(!this.$.toast.visible) {
+          this.shift('_breads');
+          this.$.toast.text = bread.text;
+          this.$.toast.duration = duration;
+          this._spreadTheJam(bread.type);
+          this.$.toast.show();
+        }
+        this.async(function() {
+          this._emptyTheToaster();
+        }, duration + 500);
+      },
+
+      /**
+       * Sets the border bottom according to the given type.
+       *
+       * @param  {String} type (info | success | warning | error)
+       */
+      _spreadTheJam: function(type) {
+        type = type && type.toLowerCase() || '';
+        var toaster = this.$.toast;
+        this.toggleClass('info', type === 'info', toaster);
+        this.toggleClass('success', type === 'success', toaster);
+        this.toggleClass('warning', type === 'warning', toaster);
+        this.toggleClass('error', type === 'error', toaster);
+      }
+
+    });
+  })();
+  </script>
+</dom-module>

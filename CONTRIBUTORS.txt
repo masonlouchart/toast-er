@@ -1,0 +1,5 @@
+# Please, add your name when you make your first Pull Request.
+# Names should be added to this file as:
+#     Name <email address>
+
+Mason Louchart <louchart.mason@gmail.com>

@@ -1,0 +1,158 @@
+<!doctype html>
+<!--
+@license
+Copyright 2015 Mason Louchart
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>toast-er Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" type="css" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../toast-er.html">
+  <style type="text/css">
+  body {
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: auto;
+    margin-bottom: 50px;
+  }
+  h1,
+  h2,
+  h3 {
+    margin-top: 40px;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="layout horizontal center-justified">
+    <div class="">
+      <h1>An example of &lt;toast-er&gt; </h1>
+      <div>
+        <h2>Spread the jam</h2>
+        <template id="app" is="dom-bind">
+          <button onclick="showStandard()">Toast by default</button>
+          <button onclick="showInfo()">Toast info</button>
+          <button onclick="showSuccess()">Toast success</button>
+          <button onclick="showWarning()">Toast warning</button>
+          <button onclick="showError()">Toast error</button>
+        </template>
+      </div>
+      <div>
+        <h2>Stack the breads</h2>
+        <button onclick="durationDefault()">Duration by default</button>
+        <button onclick="durationOne()">Duration 1 sec</button>
+        <button onclick="durationFive()">Duration 5 sec</button>
+        <button onclick="durationTen()">Duration 10 sec</button>
+      </div>
+    </div>
+    <toast-er></toast-er>
+  </div>
+
+  <script>
+  var showStandard = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Put some bread into the toaster please'
+      }
+    });
+  };
+
+  var showInfo = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'The bread is almost cooked...',
+        type: 'info'
+      }
+    });
+  };
+
+  var showSuccess = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Congratulations, your bread is tasty :D',
+        type: 'success'
+      }
+    });
+  };
+
+  var showWarning = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Be careful, the bread is burning...',
+        type: 'warning'
+      }
+    });
+  };
+
+  var showError = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Damn, your bread is completely burned!',
+        type: 'error'
+      }
+    });
+  };
+
+  var durationDefault = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'The default duration is 3 sec'
+      }
+    });
+  };
+
+  var durationOne = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Too Fast!',
+        duration: 1000
+      }
+    });
+  };
+
+  var durationFive = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'The bread is just right',
+        duration: 5000
+      }
+    });
+  };
+
+  var durationTen = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'The bread will burn it\'s sure!',
+        duration: 10000
+      }
+    });
+  };
+  </script>
+
+</body>
+
+</html>

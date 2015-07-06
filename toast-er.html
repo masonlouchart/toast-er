@@ -57,24 +57,54 @@ Event name | Method called | Description
   :host {
     display: block;
     box-sizing: border-box;
-    border-bottom: none;
+  }
+  #grill {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 5px;
+    width: 100%;
   }
   .info {
-    border-bottom: 5px solid rgb(0, 186, 255);
+    background-color: rgb(0, 186, 255);
   }
   .success {
-    border-bottom: 5px solid rgb(11, 219, 0);
+    background-color: rgb(11, 219, 0);
   }
   .warning {
-    border-bottom: 5px solid rgb(255, 168, 0);
+    background-color: rgb(255, 168, 0);
   }
   .error {
-    border-bottom: 5px solid rgb(251, 0, 0);
+    background-color: rgb(251, 0, 0);
+  }
+  @-webkit-keyframes cooking {
+    from { opacity: 1; }
+    50%  { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes cooking {
+    from { opacity: 1; }
+    50%  { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .low {
+    -webkit-animation: cooking 3s linear 0.2s infinite;
+            animation: cooking 3s linear 0.2s infinite;
+  }
+  .middle {
+    -webkit-animation: cooking 2s linear 0.2s infinite;
+            animation: cooking 2s linear 0.2s infinite;
+  }
+  .high {
+    -webkit-animation: cooking 1s linear 0.2s infinite;
+            animation: cooking 1s linear 0.2s infinite;
   }
   </style>
 
   <template>
-    <paper-toast id="toast"></paper-toast>
+    <paper-toast id="toast">
+      <span id="grill"></span>
+    </paper-toast>
     <iron-signals on-iron-signal-toaster-eject="_eject"></iron-signals>
   </template>
 
@@ -129,6 +159,9 @@ Event name | Method called | Description
        */
       _emptyTheToaster: function() {
         if (!this._breads.length) {
+          this.async(function() {
+            this._turnOffTheToaster();
+          }, 2000);
           return;
         }
         var bread = this._breads[0],
@@ -137,7 +170,7 @@ Event name | Method called | Description
           this.shift('_breads');
           this.$.toast.text = bread.text;
           this.$.toast.duration = duration;
-          this._spreadTheJam(bread.type);
+          this._turnOnTheToaster(bread.type, bread.heat);
           this.$.toast.show();
         }
         this.async(function() {
@@ -146,17 +179,39 @@ Event name | Method called | Description
       },
 
       /**
-       * Sets the border bottom according to the given type.
+       * Sets the toaster bottom color according to the given type.
        *
-       * @param  {String} type (info | success | warning | error)
+       * @param  {String} type (info | success | warning | error) defines the
+       * toaster bottom color
+       * @param  {String} heat (low | middle | high) defines the blinking speed
        */
-      _spreadTheJam: function(type) {
+      _turnOnTheToaster: function(type, heat) {
+        var grill = this.$.grill;
+        // Set the grill type.
         type = type && type.toLowerCase() || '';
-        var toaster = this.$.toast;
-        this.toggleClass('info', type === 'info', toaster);
-        this.toggleClass('success', type === 'success', toaster);
-        this.toggleClass('warning', type === 'warning', toaster);
-        this.toggleClass('error', type === 'error', toaster);
+        this.toggleClass('info', type === 'info', grill);
+        this.toggleClass('success', type === 'success', grill);
+        this.toggleClass('warning', type === 'warning', grill);
+        this.toggleClass('error', type === 'error', grill);
+        // Set the grill power.
+        heat = heat && heat.toLowerCase() || '';
+        this.toggleClass('low', heat === 'low', grill);
+        this.toggleClass('middle', heat === 'middle', grill);
+        this.toggleClass('high', heat === 'high', grill);
+      },
+
+      /**
+       * Disables toaster bottom color and blinking.
+       */
+      _turnOffTheToaster: function() {
+        var grill = this.$.grill;
+        this.toggleClass('info', false, grill);
+        this.toggleClass('success', false, grill);
+        this.toggleClass('warning', false, grill);
+        this.toggleClass('error', false, grill);
+        this.toggleClass('low', false, grill);
+        this.toggleClass('middle', false, grill);
+        this.toggleClass('high', false, grill);
       }
 
     });

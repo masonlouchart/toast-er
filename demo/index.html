@@ -59,6 +59,13 @@ limitations under the License.
         <button onclick="durationFive()">Duration 5 sec</button>
         <button onclick="durationTen()">Duration 10 sec</button>
       </div>
+      <div>
+        <h2>Cook some breads</h2>
+        <button onclick="cookingDefault()">Cooking by default</button>
+        <button onclick="cookingOverHeatLow()">Cooking over heat low</button>
+        <button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button>
+        <button onclick="cookingOverHeatHigh()">Cooking over heat high</button>
+      </div>
     </div>
     <toast-er></toast-er>
   </div>
@@ -136,7 +143,7 @@ limitations under the License.
     app.fire('iron-signal', {
       name: 'toaster-eject',
       data: {
-        text: 'The bread is just right',
+        text: 'What can you do in five seconds? Save the world?',
         duration: 5000
       }
     });
@@ -146,8 +153,53 @@ limitations under the License.
     app.fire('iron-signal', {
       name: 'toaster-eject',
       data: {
-        text: 'The bread will burn it\'s sure!',
+        text: 'Sometimes, ten seconds can seem long... quite long...',
         duration: 10000
+      }
+    });
+  };
+
+  var cookingDefault = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'By default the grill is turned off, yep...'
+      }
+    });
+  };
+
+  var cookingOverHeatHigh = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Slow down cowboy, your bread will burn it\'s sure!',
+        type: 'error',
+        duration: 5000,
+        heat: 'high'
+      }
+    });
+  };
+
+  var cookingOverHeatMiddle = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'Keep an eye on your bread.',
+        type: 'warning',
+        duration: 5000,
+        heat: 'middle'
+      }
+    });
+  };
+
+  var cookingOverHeatLow = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-eject',
+      data: {
+        text: 'You can also put your bread into a freezer...',
+        type: 'info',
+        duration: 5000,
+        heat: 'low'
       }
     });
   };

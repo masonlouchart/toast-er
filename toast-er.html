@@ -19,9 +19,21 @@ limitations under the License.
 <link rel="import" href="../iron-signals/iron-signals.html">
 
 <!--
-Polymer toast with some extra features.
+Polymer toaster with some swagg features.
 
-Example:
+The toaster has a bin. So you can throw events without caring about
+displaying, all messages will be displayed with respecting of each individual
+configuration (text, duration, style...).
+
+The toaster makes 4 types of toast (info, success, warning and error). Each
+type sets a light at the bottom according to the level of 'dangerousity'.
+
+You can also set the heat level (low, middle or high). The toast blink more or
+less speedily.
+<br>
+
+###Example:
+Just put the tag in the index page and fire the good events, that's all !
 
     <template id="app" is="dom-bind">
       <toast-er></toast-er>
@@ -39,12 +51,28 @@ Example:
       });
     }
     </script>
+<br>
 
-Audited events:
+##Audited events:
 
-Event name | Method called | Description
-:--|:--|:--
-`iron-signal-toaster-eject` | `_eject` | Shows the toast with received data
+Name                        | Method called | Description
+:---------------------------|:--------------|:-----------
+`iron-signal-toaster-eject` | `_eject`      | Shows the toast with received data
+<br>
+
+##Event detail properties:
+
+Property   | Value           | Description
+:----------|:----------------|:------------
+`text`     | 'What you want' | The text shown by the toaster
+`type`     | 'info'          | Sets the color of toaster bottom to #00baff (cyan)
+`type`     | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
+`type`     | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
+`type`     | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
+`duration` | 5000 (millisec) | Sets the toast duration to 5 seconds (default: 3000)
+`heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
+`heat`     | 'middle'        | The toaster blinks with a transition in 2 seconds
+`heat`     | 'high'          | The toaster blinks with a transition in 1 second
 
 @element toast-er
 @demo
@@ -78,26 +106,38 @@ Event name | Method called | Description
     background-color: rgb(251, 0, 0);
   }
   @-webkit-keyframes cooking {
-    from { opacity: 1; }
-    50%  { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @keyframes cooking {
-    from { opacity: 1; }
-    50%  { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   .low {
     -webkit-animation: cooking 3s linear 0.2s infinite;
-            animation: cooking 3s linear 0.2s infinite;
+    animation: cooking 3s linear 0.2s infinite;
   }
   .middle {
     -webkit-animation: cooking 2s linear 0.2s infinite;
-            animation: cooking 2s linear 0.2s infinite;
+    animation: cooking 2s linear 0.2s infinite;
   }
   .high {
     -webkit-animation: cooking 1s linear 0.2s infinite;
-            animation: cooking 1s linear 0.2s infinite;
+    animation: cooking 1s linear 0.2s infinite;
   }
   </style>
 
@@ -144,8 +184,8 @@ Event name | Method called | Description
        * Shows the toast then `_emptyTheToaster`.
        *
        * @param {Object} event  iron-signal-toaster-eject
-       * @param {Object} detail can contains `text` {String}, `type` {String}
-       * and `duration` {Number}
+       * @param {Object} detail can contains `text` {String}, `type` {String},
+       *  `duration` {Number} and `heat` {String}
        */
       _eject: function(event, detail) {
         if (detail.text && detail.text.trim().length) {
@@ -166,7 +206,7 @@ Event name | Method called | Description
         }
         var bread = this._breads[0],
           duration = bread.duration || this._duration;
-        if(!this.$.toast.visible) {
+        if (!this.$.toast.visible) {
           this.shift('_breads');
           this.$.toast.text = bread.text;
           this.$.toast.duration = duration;

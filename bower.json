@@ -4,7 +4,7 @@
   "authors": [
     "Mason Louchart <louchart.mason@gmail.com>"
   ],
-  "description": "Polymer toast with some extra features.",
+  "description": "Polymer toaster with some swagg features (queue, styles, blinking...).",
   "keywords": [
     "web-component",
     "web-components",

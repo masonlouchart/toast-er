@@ -1,8 +1,18 @@
 &lt;toast-er&gt;
 ====================
 
-&lt;toast-er&gt; is a [Polymer][polymer_page] `paper-toast` with some extra
+&lt;toast-er&gt; is a [Polymer][polymer_page] `paper-toast` with some swagg
 features.
+
+The toaster has a bin. So you can throw events without caring about
+displaying, all messages will be displayed with respecting of each individual
+configuration (text, duration, style...).
+
+The toaster makes 4 types of toast (info, success, warning and error). Each
+type sets a light at the bottom according to the level of 'dangerousity'.
+
+You can also set the heat level (low, middle or high). The toast blink more or
+less speedily.
 
 > Maintained by [Mason Louchart][profile_page].
 
@@ -26,16 +36,46 @@ See the [Component Page][component_page]
 
 3. Start using it!
 
+	Just put the tag in the index page and fire the good events, that's all !
+
 	```html
-	<toast-er></toast-er>
-	...
+	<template id="app" is="dom-bind">
+	  <toast-er></toast-er>
+	</template>
+
+	<script>
+	function someMethod() {
+	  app.fire('iron-signal', {
+	    name: 'toaster-eject',
+	    data: {
+	      text: 'You are not allowed to do this.',
+	      type: 'error',
+	      duration: 5000
+	    }
+	  });
+	}
+	</script>
 	```
 
-## Audited events
+##Audited events:
 
-Event name                  | Method called | Description
-:---------------------------|:--------------|:---------------------------------
-`iron-signal-toaster-eject` | `_eject`      | Shows the toast
+Name                        | Method called | Description
+:---------------------------|:--------------|:-----------
+`iron-signal-toaster-eject` | `_eject`      | Shows the toast with received data
+
+##Event detail properties:
+
+Property   | Value           | Description
+:----------|:----------------|:------------
+`text`     | 'What you want' | The text shown by the toaster
+`type`     | 'info'          | Sets the color of toaster bottom to #00baff (cyan)
+`type`     | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
+`type`     | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
+`type`     | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
+`duration` | 5000 (millisec) | Sets the toast duration to 5 seconds (default: 3000)
+`heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
+`heat`     | 'middle'        | The toaster blinks with a transition in 2 seconds
+`heat`     | 'high'          | The toaster blinks with a transition in 1 second
 
 ## Contributing
 

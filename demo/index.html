@@ -66,6 +66,13 @@ limitations under the License.
         <button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button>
         <button onclick="cookingOverHeatHigh()">Cooking over heat high</button>
       </div>
+      <div>
+        <h2>Move the toaster of the kitchen shelf</h2>
+        <button onclick="positionDefault()">Default shelf</button>
+        <button onclick="positionShelfTopLeft()">Move to top-left shelf</button>
+        <button onclick="positionShelfTopRight()">Move to top-right shelf</button>
+        <button onclick="positionShelfBottomRight()">Move to bottom-right shelf</button>
+      </div>
     </div>
     <toast-er></toast-er>
   </div>
@@ -73,7 +80,7 @@ limitations under the License.
   <script>
   var showStandard = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Put some bread into the toaster please'
       }
@@ -82,7 +89,7 @@ limitations under the License.
 
   var showInfo = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'The bread is almost cooked...',
         type: 'info'
@@ -92,7 +99,7 @@ limitations under the License.
 
   var showSuccess = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Congratulations, your bread is tasty :D',
         type: 'success'
@@ -102,7 +109,7 @@ limitations under the License.
 
   var showWarning = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Be careful, the bread is burning...',
         type: 'warning'
@@ -112,7 +119,7 @@ limitations under the License.
 
   var showError = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Damn, your bread is completely burned!',
         type: 'error'
@@ -122,7 +129,7 @@ limitations under the License.
 
   var durationDefault = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'The default duration is 3 sec'
       }
@@ -131,7 +138,7 @@ limitations under the License.
 
   var durationOne = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Too Fast!',
         duration: 1000
@@ -141,7 +148,7 @@ limitations under the License.
 
   var durationFive = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'What can you do in five seconds? Save the world?',
         duration: 5000
@@ -151,7 +158,7 @@ limitations under the License.
 
   var durationTen = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Sometimes, ten seconds can seem long... quite long...',
         duration: 10000
@@ -161,7 +168,7 @@ limitations under the License.
 
   var cookingDefault = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'By default the grill is turned off, yep...'
       }
@@ -170,7 +177,7 @@ limitations under the License.
 
   var cookingOverHeatHigh = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Slow down cowboy, your bread will burn it\'s sure!',
         type: 'error',
@@ -182,7 +189,7 @@ limitations under the License.
 
   var cookingOverHeatMiddle = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'Keep an eye on your bread.',
         type: 'warning',
@@ -194,12 +201,51 @@ limitations under the License.
 
   var cookingOverHeatLow = function() {
     app.fire('iron-signal', {
-      name: 'toaster-eject',
+      name: 'toaster-bake',
       data: {
         text: 'You can also put your bread into a freezer...',
         type: 'info',
         duration: 5000,
         heat: 'low'
+      }
+    });
+  };
+
+  var positionDefault = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'Bottom-left shelf (default)'
+      }
+    });
+  };
+
+  var positionShelfTopLeft = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'Top-left shelf',
+        shelf: 'top-left'
+      }
+    });
+  };
+
+  var positionShelfTopRight = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'Top-right shelf',
+        shelf: 'top-right'
+      }
+    });
+  };
+
+  var positionShelfBottomRight = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'Bottom-right shelf',
+        shelf: 'bottom-right'
       }
     });
   };

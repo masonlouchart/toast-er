@@ -1,10 +1,10 @@
 {
   "name": "toast-er",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "authors": [
     "Mason Louchart <louchart.mason@gmail.com>"
   ],
-  "description": "Polymer toaster with some swagg features (queue, styles, blinking...).",
+  "description": "Polymer toaster with some swagg features (queue, styles, position, blinking...).",
   "keywords": [
     "web-component",
     "web-components",

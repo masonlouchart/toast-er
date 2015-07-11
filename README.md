@@ -6,13 +6,17 @@ features.
 
 The toaster has a bin. So you can throw events without caring about
 displaying, all messages will be displayed with respecting of each individual
-configuration (text, duration, style...).
+configuration (text, duration, style, position...).
 
 The toaster makes 4 types of toast (info, success, warning and error). Each
 type sets a light at the bottom according to the level of 'dangerousity'.
 
 You can also set the heat level (low, middle or high). The toast blink more or
-less speedily.
+less speedily according to the defined level.
+
+You can choose on which shelf placing the toaster. There are 4 possibilities of
+course, the shelf at bottom-left (default), bottom-right, top-left and
+top-right.
 
 > Maintained by [Mason Louchart][profile_page].
 
@@ -24,44 +28,49 @@ See the [Component Page][component_page]
 
 1. Install The Component:
 
-	```sh
-	bower install toast-er --save
-	```
+  ```sh
+  bower install toast-er --save
+  ```
 
 2. Import Custom Element:
 
-	```html
-	<link rel="import" href="PATH/TO/BOWER/COMPONENTS/toast-er/toast-er.html">
-	```
+  ```html
+  <link rel="import" href="PATH/TO/BOWER/COMPONENTS/toast-er/toast-er.html">
+  ```
 
 3. Start using it!
 
-	Just put the tag in the index page and fire the good events, that's all !
+  Just put the tag in the index page...
 
-	```html
-	<template id="app" is="dom-bind">
-	  <toast-er></toast-er>
-	</template>
+  ```html
+  <toast-er></toast-er>
+  ```
 
-	<script>
-	function someMethod() {
-	  app.fire('iron-signal', {
-	    name: 'toaster-eject',
-	    data: {
-	      text: 'You are not allowed to do this.',
-	      type: 'error',
-	      duration: 5000
-	    }
-	  });
-	}
-	</script>
-	```
+  ...and fire some events, that's all !
+
+  ```html
+  <script>
+  function someMethod() {
+     this.fire('iron-signal', {
+       name: 'toaster-bake',
+       data: {
+         text: 'You are not allowed to do this.',
+         type: 'error',
+         duration: 5000,
+         heat: 'high',
+         shelf: 'top-right'
+       }
+     });
+  }
+  </script>
+  ```
+  There are no required options excepted `text` !
 
 ##Audited events:
 
 Name                        | Method called | Description
 :---------------------------|:--------------|:-----------
-`iron-signal-toaster-eject` | `_eject`      | Shows the toast with received data
+`iron-signal-toaster-bake`  | `_bake`       | Shows the toast with received data
 
 ##Event detail properties:
 
@@ -76,6 +85,10 @@ Property   | Value           | Description
 `heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
 `heat`     | 'middle'        | The toaster blinks with a transition in 2 seconds
 `heat`     | 'high'          | The toaster blinks with a transition in 1 second
+`shelf`    | 'top-right'     | Sets the toaster position to the top-right corner
+`shelf`    | 'top-left'      | Sets the toaster position to the top-left corner
+`shelf`    | 'bottom-right'  | Sets the toaster position to the bottom-right corner
+`shelf`    | 'bottom-left'   | Sets the toaster position to the bottom-left corner
 
 ## Contributing
 

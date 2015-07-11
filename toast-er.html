@@ -29,35 +29,43 @@ The toaster makes 4 types of toast (info, success, warning and error). Each
 type sets a light at the bottom according to the level of 'dangerousity'.
 
 You can also set the heat level (low, middle or high). The toast blink more or
-less speedily.
+less speedily according to the defined level.
+
+You can choose on which shelf placing the toaster. There are 4 possibilities of
+course, the shelf at bottom-left (default), bottom-right, top-left and
+top-right.
 <br>
 
 ###Example:
-Just put the tag in the index page and fire the good events, that's all !
+Just put the tag in the index page...
 
-    <template id="app" is="dom-bind">
-      <toast-er></toast-er>
-    </template>
+    <toast-er></toast-er>
+
+...and fire some events, that's all !
 
     <script>
     function someMethod() {
-      app.fire('iron-signal', {
-        name: 'toaster-eject',
+      this.fire('iron-signal', {
+        name: 'toaster-bake',
         data: {
           text: 'You are not allowed to do this.',
           type: 'error',
-          duration: 5000
+          duration: 5000,
+          heat: 'high',
+          shelf: 'top-right'
         }
       });
     }
     </script>
-<br>
+
+There are no required options excepted `text` !
+<br><br>
 
 ##Audited events:
 
 Name                        | Method called | Description
 :---------------------------|:--------------|:-----------
-`iron-signal-toaster-eject` | `_eject`      | Shows the toast with received data
+`iron-signal-toaster-bake`  | `_bake`       | Shows the toast with received data
 <br>
 
 ##Event detail properties:
@@ -73,6 +81,10 @@ Property   | Value           | Description
 `heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
 `heat`     | 'middle'        | The toaster blinks with a transition in 2 seconds
 `heat`     | 'high'          | The toaster blinks with a transition in 1 second
+`shelf`    | 'top-right'     | Sets the toaster position to the top-right corner
+`shelf`    | 'top-left'      | Sets the toaster position to the top-left corner
+`shelf`    | 'bottom-right'  | Sets the toaster position to the bottom-right corner
+`shelf`    | 'bottom-left'   | Sets the toaster position to the bottom-left corner
 
 @element toast-er
 @demo
@@ -83,8 +95,9 @@ Property   | Value           | Description
 <dom-module id="toast-er">
   <style>
   :host {
-    display: block;
+    display: inline-block;
     box-sizing: border-box;
+    position: fixed;
   }
   #grill {
     position: absolute;
@@ -139,13 +152,49 @@ Property   | Value           | Description
     -webkit-animation: cooking 1s linear 0.2s infinite;
     animation: cooking 1s linear 0.2s infinite;
   }
+  :host.top-left {
+    left: 0;
+  }
+  :host.top-left,
+  :host.top-right {
+    top: 0;
+    transform: translateY(0px);
+  }
+  :host.top-left paper-toast,
+  :host.top-right paper-toast {
+    top: 0;
+    transform: translateY(-100px);
+  }
+  :host.top-left paper-toast.paper-toast-open,
+  :host.top-right paper-toast.paper-toast-open {
+    top: 12px;
+    transform: translateY(0px);
+  }
+  :host.bottom-left {
+    left: 0;
+  }
+  :host.bottom-left,
+  :host.bottom-right {
+    bottom: 0;
+    transform: translateY(0px);
+  }
+  :host.bottom-left paper-toast,
+  :host.bottom-right paper-toast {
+    bottom: 0;
+    transform: translateY(100px);
+  }
+  :host.bottom-left paper-toast.paper-toast-open,
+  :host.bottom-right paper-toast.paper-toast-open {
+    bottom: 12px;
+    transform: translateY(0px);
+  }
   </style>
 
   <template>
     <paper-toast id="toast">
       <span id="grill"></span>
     </paper-toast>
-    <iron-signals on-iron-signal-toaster-eject="_eject"></iron-signals>
+    <iron-signals on-iron-signal-toaster-bake="_bake"></iron-signals>
   </template>
 
   <script>
@@ -183,13 +232,13 @@ Property   | Value           | Description
       /**
        * Shows the toast then `_emptyTheToaster`.
        *
-       * @param {Object} event  iron-signal-toaster-eject
-       * @param {Object} detail can contains `text` {String}, `type` {String},
-       *  `duration` {Number} and `heat` {String}
+       * @param {Object} event  iron-signal-toaster-bake
+       * @param {Object} bread  to bake can contains `text` {String},
+       * `type` {String}, `duration` {Number}, `heat` {String} and `shelf` {String}
        */
-      _eject: function(event, detail) {
-        if (detail.text && detail.text.trim().length) {
-          this.push('_breads', detail);
+      _bake: function(event, bread) {
+        if (bread.text && bread.text.trim().length) {
+          this.push('_breads', bread);
           this._emptyTheToaster();
         }
       },
@@ -201,17 +250,20 @@ Property   | Value           | Description
         if (!this._breads.length) {
           this.async(function() {
             this._turnOffTheToaster();
-          }, 2000);
+          }, 1000);
           return;
         }
         var bread = this._breads[0],
-          duration = bread.duration || this._duration;
-        if (!this.$.toast.visible) {
+          duration = bread.duration || this._duration,
+          toast = this.$.toast;
+        if (!toast.visible) {
           this.shift('_breads');
-          this.$.toast.text = bread.text;
-          this.$.toast.duration = duration;
-          this._turnOnTheToaster(bread.type, bread.heat);
-          this.$.toast.show();
+          toast.text = bread.text;
+          toast.duration = duration;
+          this._turnOnTheToaster(bread.type, bread.heat, bread.shelf);
+          this.async(function() {
+            toast.show();
+          }, 100);
         }
         this.async(function() {
           this._emptyTheToaster();
@@ -219,13 +271,14 @@ Property   | Value           | Description
       },
 
       /**
-       * Sets the toaster bottom color according to the given type.
+       * Sets the toaster bottom color according to the given type, defines the
+       * blinking speed and sets the toast position.
        *
-       * @param  {String} type (info | success | warning | error) defines the
-       * toaster bottom color
-       * @param  {String} heat (low | middle | high) defines the blinking speed
+       * @param  {String} type  (info | success | warning | error) defines the toaster bottom color
+       * @param  {String} heat  (low | middle | high) defines the blinking speed
+       * @param  {String} shelf (top-left, top-right, bottom-left, bottom-right) defines the toaster position
        */
-      _turnOnTheToaster: function(type, heat) {
+      _turnOnTheToaster: function(type, heat, shelf) {
         var grill = this.$.grill;
         // Set the grill type.
         type = type && type.toLowerCase() || '';
@@ -238,6 +291,12 @@ Property   | Value           | Description
         this.toggleClass('low', heat === 'low', grill);
         this.toggleClass('middle', heat === 'middle', grill);
         this.toggleClass('high', heat === 'high', grill);
+        // Set the toaster position.
+        shelf = shelf && shelf.toLowerCase() || ''
+        this.toggleClass('top-left', shelf === 'top-left');
+        this.toggleClass('top-right', shelf === 'top-right');
+        this.toggleClass('bottom-left', shelf === 'bottom-left');
+        this.toggleClass('bottom-right', shelf === 'bottom-right');
       },
 
       /**
@@ -245,10 +304,6 @@ Property   | Value           | Description
        */
       _turnOffTheToaster: function() {
         var grill = this.$.grill;
-        this.toggleClass('info', false, grill);
-        this.toggleClass('success', false, grill);
-        this.toggleClass('warning', false, grill);
-        this.toggleClass('error', false, grill);
         this.toggleClass('low', false, grill);
         this.toggleClass('middle', false, grill);
         this.toggleClass('high', false, grill);

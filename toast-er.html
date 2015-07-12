@@ -152,7 +152,8 @@ Property   | Value           | Description
     -webkit-animation: cooking 1s linear 0.2s infinite;
     animation: cooking 1s linear 0.2s infinite;
   }
-  :host.top-left {
+  :host.top-left,
+  :host.bottom-left {
     left: 0;
   }
   :host.top-left,
@@ -169,9 +170,6 @@ Property   | Value           | Description
   :host.top-right paper-toast.paper-toast-open {
     top: 12px;
     transform: translateY(0px);
-  }
-  :host.bottom-left {
-    left: 0;
   }
   :host.bottom-left,
   :host.bottom-right {
@@ -297,6 +295,9 @@ Property   | Value           | Description
         this.toggleClass('top-right', shelf === 'top-right');
         this.toggleClass('bottom-left', shelf === 'bottom-left');
         this.toggleClass('bottom-right', shelf === 'bottom-right');
+        if (shelf.indexOf('right') >= 0) {
+          this.style.right = (grill.clientWidth + 24) + 'px';
+        }
       },
 
       /**

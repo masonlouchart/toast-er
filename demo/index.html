@@ -29,53 +29,195 @@ limitations under the License.
     font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: auto;
     margin-bottom: 50px;
+    background: rgb(245, 245, 245);
   }
-  h1,
-  h2,
-  h3 {
+  p {
+      text-align: justify;
+      max-width: 900px;
+    }
+  h1, h2, h3 {
+    color: rgb(255, 122, 0);
     margin-top: 40px;
+  }
+  thead {
+    font-weight: bold;
+    background: lightgray;
+    text-align: center;
+  }
+  tbody tr, li {
+    line-height: 30px;
+  }
+  table td {
+    padding: 5px;
   }
   </style>
 </head>
 
 <body>
+  <template id="app" is="dom-bind">
   <div class="layout horizontal center-justified">
     <div class="">
-      <h1>An example of &lt;toast-er&gt; </h1>
+      <h1>toast-er for sale, almost new!</h1>
+      <p>
+        The toaster has a bin. So you can throw events without caring about
+        displaying, all messages will be displayed with respecting of each
+        individual configuration (text, duration, style, position...).
+      </p>
+      <p>
+        <u>The default configuration is:</u>
+        <ul>
+          <li>duration of 3000 millisec</li>
+          <li>no type</li>
+          <li>no heat</li>
+          <li>shelf bottom-left</li>
+        </ul>
+      </p>
+      <button onclick="showStandard()">Toast by default</button>
       <div>
         <h2>Spread the jam</h2>
-        <template id="app" is="dom-bind">
-          <button onclick="showStandard()">Toast by default</button>
-          <button onclick="showInfo()">Toast info</button>
-          <button onclick="showSuccess()">Toast success</button>
-          <button onclick="showWarning()">Toast warning</button>
-          <button onclick="showError()">Toast error</button>
-        </template>
+        <table>
+          <thead>
+          <tr>
+            <td>Attribute</td>
+            <td>Value</td>
+            <td>Result</td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>type</td>
+              <td>info</td>
+              <td><button onclick="showInfo()">Toast info</button></td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>success</td>
+              <td><button onclick="showSuccess()">Toast success</button></td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>warning</td>
+              <td><button onclick="showWarning()">Toast warning</button></td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>error</td>
+              <td><button onclick="showError()">Toast error</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
-        <h2>Stack the breads</h2>
-        <button onclick="durationDefault()">Duration by default</button>
-        <button onclick="durationOne()">Duration 1 sec</button>
-        <button onclick="durationFive()">Duration 5 sec</button>
-        <button onclick="durationTen()">Duration 10 sec</button>
+        <h2>Set the cooking duration</h2>
+        <table>
+          <thead>
+          <tr>
+            <td>Attribute</td>
+            <td>Value</td>
+            <td>Result</td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>duration</td>
+              <td>1000</td>
+              <td><button onclick="durationOne()">Duration 1 sec</button></td>
+            </tr>
+            <tr>
+              <td>duration</td>
+              <td>5000</td>
+              <td><button onclick="durationFive()">Duration 5 sec</button></td>
+            </tr>
+            <tr>
+              <td>duration</td>
+              <td>10000</td>
+              <td><button onclick="durationTen()">Duration 10 sec</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
         <h2>Cook some breads</h2>
-        <button onclick="cookingDefault()">Cooking by default</button>
-        <button onclick="cookingOverHeatLow()">Cooking over heat low</button>
-        <button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button>
-        <button onclick="cookingOverHeatHigh()">Cooking over heat high</button>
+        <table>
+          <thead>
+          <tr>
+            <td>Attribute</td>
+            <td>Value</td>
+            <td>Result</td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>heat</td>
+              <td>low</td>
+              <td><button onclick="cookingOverHeatLow()">Cooking over heat low</button></td>
+            </tr>
+            <tr>
+              <td>heat</td>
+              <td>middle</td>
+              <td><button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button></td>
+            </tr>
+            <tr>
+              <td>heat</td>
+              <td>high</td>
+              <td><button onclick="cookingOverHeatHigh()">Cooking over heat high</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
         <h2>Move the toaster of the kitchen shelf</h2>
-        <button onclick="positionDefault()">Default shelf</button>
-        <button onclick="positionShelfTopLeft()">Move to top-left shelf</button>
-        <button onclick="positionShelfTopRight()">Move to top-right shelf</button>
-        <button onclick="positionShelfBottomRight()">Move to bottom-right shelf</button>
+        <table>
+          <thead>
+          <tr>
+            <td>Attribute</td>
+            <td>Value</td>
+            <td>Result</td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>shelf</td>
+              <td>top-left</td>
+              <td><button onclick="positionShelfTopLeft()">Move to top-left shelf</button></td>
+            </tr>
+            <tr>
+              <td>shelf</td>
+              <td>top-right</td>
+              <td><button onclick="positionShelfTopRight()">Move to top-right shelf</button></td>
+            </tr>
+            <tr>
+              <td>shelf</td>
+              <td>bottom-right</td>
+              <td><button onclick="positionShelfBottomRight()">Move to bottom-right shelf</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h2>Stack the breads</h2>
+        <p>
+          The following button will fire 3 events with 3 different configurations
+          by interval of 1500 millisec.<br><small>To be able to pass under this limit
+          the async bin must be improved.</small>
+          <ul>
+            <li>1st: type info, heat low</li>
+            <li>2nd: type warning, heat middle, shelf top-left, duration 2000</li>
+            <li>3rd: type error, heat high, shelf top-right, duration 6000</li>
+          </ul>
+        </p>
+        <button onclick="stackTheBreads()">Stack the breads</button>
+      </div>
+      <div>
+        <h3>Initial author</h3>
+        Mason Louchart - is on
+        <a href="https://github.com/LM450N">GitHub</a> and
+        <a href="https://twitter.com/LM450N">Twitter</a>
       </div>
     </div>
     <toast-er></toast-er>
   </div>
+  </template>
 
   <script>
   var showStandard = function() {
@@ -127,15 +269,6 @@ limitations under the License.
     });
   };
 
-  var durationDefault = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-bake',
-      data: {
-        text: 'The default duration is 3 sec'
-      }
-    });
-  };
-
   var durationOne = function() {
     app.fire('iron-signal', {
       name: 'toaster-bake',
@@ -166,21 +299,12 @@ limitations under the License.
     });
   };
 
-  var cookingDefault = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-bake',
-      data: {
-        text: 'By default the grill is turned off, yep...'
-      }
-    });
-  };
-
   var cookingOverHeatHigh = function() {
     app.fire('iron-signal', {
       name: 'toaster-bake',
       data: {
-        text: 'Slow down cowboy, your bread will burn it\'s sure!',
-        type: 'error',
+        text: 'The grill does the transition in 1 sec!',
+        type: 'success',
         duration: 5000,
         heat: 'high'
       }
@@ -191,8 +315,8 @@ limitations under the License.
     app.fire('iron-signal', {
       name: 'toaster-bake',
       data: {
-        text: 'Keep an eye on your bread.',
-        type: 'warning',
+        text: 'The grill does the transition in 2 sec.',
+        type: 'success',
         duration: 5000,
         heat: 'middle'
       }
@@ -203,19 +327,10 @@ limitations under the License.
     app.fire('iron-signal', {
       name: 'toaster-bake',
       data: {
-        text: 'You can also put your bread into a freezer...',
-        type: 'info',
+        text: 'The grill does the transition in 3 sec.',
+        type: 'success',
         duration: 5000,
         heat: 'low'
-      }
-    });
-  };
-
-  var positionDefault = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-bake',
-      data: {
-        text: 'Bottom-left shelf (default)'
       }
     });
   };
@@ -249,6 +364,43 @@ limitations under the License.
       }
     });
   };
+
+  var stackTheBreads = function() {
+    app.async(function() {
+      this.fire('iron-signal', {
+        name: 'toaster-bake',
+        data: {
+          text: '1st: type info, heat low',
+          type: 'info',
+          heat: 'low'
+        }
+      });
+    }, 100);
+    app.async(function() {
+      this.fire('iron-signal', {
+        name: 'toaster-bake',
+        data: {
+          text: '2nd: type warning, heat middle, shelf top-left, duration 2000',
+          type: 'warning',
+          heat: 'middle',
+          shelf: 'top-left',
+          duration: 2000
+        }
+      });
+    }, 1500);
+    app.async(function() {
+      this.fire('iron-signal', {
+        name: 'toaster-bake',
+        data: {
+          text: '3rd: type error, heat high, shelf top-right, duration 6000',
+          type: 'error',
+          heat: 'high',
+          shelf: 'top-right',
+          duration: 6000
+        }
+      });
+    }, 3000);
+  }
   </script>
 
 </body>

@@ -44,6 +44,10 @@ See the [Component Page][component_page]
 
   ```html
   <toast-er></toast-er>
+  <toast-er duration="5000"></toast-er>
+  <toast-er type="info"></toast-er>
+  <toast-er type="warning" heat="middle"></toast-er>
+  <toast-er shelf="top-right"></toast-er>
   ```
 
   ...and fire some events, that's all !

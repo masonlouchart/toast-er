@@ -40,6 +40,10 @@ top-right.
 Just put the tag in the index page...
 
     <toast-er></toast-er>
+    <toast-er duration="5000"></toast-er>
+    <toast-er type="info"></toast-er>
+    <toast-er type="warning" heat="middle"></toast-er>
+    <toast-er shelf="top-right"></toast-er>
 
 ...and fire some events, that's all !
 
@@ -203,6 +207,59 @@ Property   | Value           | Description
 
       properties: {
         /**
+         * Text to display.
+         *
+         * @type {String}
+         * @default
+         */
+        text: {
+          type: String
+        },
+
+        /**
+         * Duration of displaying.
+         *
+         * @type {Number}
+         * @default 3000
+         */
+        duration: {
+          type: Number,
+          value: 3000
+        },
+
+        /**
+         * Type of toaster. (success | info | warning | error)
+         *
+         * @type {String}
+         * @default
+         */
+        type: {
+          type: String
+        },
+
+        /**
+         * Defines the speed of blinking of the toast's underline.
+         * (low | middle | high)
+         *
+         * @type {String}
+         * @default
+         */
+        heat: {
+          type: String
+        },
+
+        /**
+         * Sets the toaster position.
+         * (top-right | top-left | bottom-right | bottom-left)
+         *
+         * @type {String}
+         * @default
+         */
+        shelf: {
+          type: String
+        },
+
+        /**
          * Stack of breads.
          *
          * @type {Array}
@@ -212,18 +269,6 @@ Property   | Value           | Description
           value: function() {
             return [];
           }
-        },
-
-        /**
-         * Default duration.
-         *
-         * @type {Number}
-         * @default 3000
-         */
-        _duration: {
-          type: Number,
-          readOnly: true,
-          value: 3000
         }
       },
 
@@ -235,7 +280,8 @@ Property   | Value           | Description
        * `type` {String}, `duration` {Number}, `heat` {String} and `shelf` {String}
        */
       _bake: function(event, bread) {
-        if (bread.text && bread.text.trim().length) {
+        var text = bread.text || this.text;
+        if (text && text.trim().length) {
           this.push('_breads', bread);
           this._emptyTheToaster();
         }
@@ -245,24 +291,31 @@ Property   | Value           | Description
        * Shows message by unstacking of toasts.
        */
       _emptyTheToaster: function() {
+        // Turn off the toaster if the queue is empty.
         if (!this._breads.length) {
           this.async(function() {
             this._turnOffTheToaster();
           }, 1000);
           return;
         }
+        // Get configuration of the toast.
         var bread = this._breads[0],
-          duration = bread.duration || this._duration,
+          duration = bread.duration || this.duration,
+          type = bread.type || this.type,
+          heat = bread.heat || this.heat,
+          shelf = bread.shelf || this.shelf,
           toast = this.$.toast;
+        // Shows the toast.
         if (!toast.visible) {
           this.shift('_breads');
-          toast.text = bread.text;
+          toast.text = bread.text || this.text;
           toast.duration = duration;
-          this._turnOnTheToaster(bread.type, bread.heat, bread.shelf);
+          this._turnOnTheToaster(type, heat, shelf);
           this.async(function() {
             toast.show();
           }, 100);
         }
+        // Queue the next toast.
         this.async(function() {
           this._emptyTheToaster();
         }, duration + 500);

@@ -16,24 +16,142 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <!-- Step 1: import the element to test -->
-    <link rel="import" href="../toast-er.html">
-  </head>
-  <body>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
-    <!-- You can use the document as a place to set up your fixtures. -->
-    <toast-er></toast-er>
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../toast-er.html">
+</head>
 
-    <script>
-      // Test code goes here
-    </script>
+<body>
 
-  </body>
+  <!-- You can use the document as a place to set up your fixtures. -->
+  <test-fixture id="basic">
+    <template>
+      <toast-er></toast-er>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="info">
+    <template>
+      <toast-er type="info" text="info"></toast-er>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="warning">
+    <template>
+      <toast-er type="warning" text="warning"></toast-er>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="error">
+    <template>
+      <toast-er type="error" text="error"></toast-er>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="success">
+    <template>
+      <toast-er type="success" text="success"></toast-er>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('toast-er', function() {
+      var toast;
+
+      function fire(done) {
+        toast.fire('iron-signal', {
+          name: 'toaster-bake',
+          data: {
+            text: toast.type
+          }
+        });
+        setTimeout(done, 200);
+      };
+
+      describe('basic', function(done) {
+        before(function() {
+          toast = fixture('basic');
+          fire(done);
+        });
+
+        it('is not displayed if text not set', function() {
+          expect(toast.text).to.be.undefined;
+        });
+
+        it('has no underline blinking', function() {
+          expect(toast.$.grill.style.opacity).to.be.empty;
+        });
+      });
+
+      describe('info', function(done) {
+        before(function() {
+          toast = fixture('info');
+          fire(done);
+        });
+
+        it('has text equals to `info`', function() {
+          expect(toast.text).to.equal('info');
+        });
+
+        it('has the class style `info`', function() {
+          expect(toast.$.grill.className).to.contain('info');
+        });
+      });
+
+      describe('warning', function(done) {
+        before(function() {
+          toast = fixture('warning');
+          fire(done);
+        });
+
+        it('has text equals to `warning`', function() {
+          expect(toast.text).to.equal('warning');
+        });
+
+        it('has the class style `warning`', function() {
+          expect(toast.$.grill.className).to.include('warning');
+        });
+      });
+
+      describe('error', function(done) {
+        before(function() {
+          toast = fixture('error');
+          fire(done);
+        });
+
+        it('has text equals to `error`', function() {
+          expect(toast.text).to.equal('error');
+        });
+
+        it('has the class style `error`', function() {
+          expect(toast.$.grill.className).to.include('error');
+        });
+      });
+
+      describe('success', function(done) {
+        before(function() {
+          toast = fixture('success');
+          fire(done);
+        });
+
+        it('has text equals to `success`', function() {
+          expect(toast.text).to.equal('success');
+        });
+
+        it('has the class style `success`', function() {
+          expect(toast.$.grill.className).to.include('success');
+        });
+      });
+    });
+  </script>
+
+</body>
+
 </html>

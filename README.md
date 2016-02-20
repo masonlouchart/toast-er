@@ -1,5 +1,6 @@
 &lt;toast-er&gt;
 ====================
+[![Build Status](https://travis-ci.org/LM450N/toast-er.svg?branch=master)](https://travis-ci.org/LM450N/toast-er)
 
 &lt;toast-er&gt; is a [Polymer][polymer_page] `paper-toast` with some swagg
 features.

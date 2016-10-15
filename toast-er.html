@@ -306,7 +306,7 @@ Property   | Value           | Description
           shelf = bread.shelf || this.shelf,
           toast = this.$.toast;
         // Shows the toast.
-        if (!toast.visible) {
+        if (!toast.opened) {
           this.shift('_breads');
           toast.text = bread.text || this.text;
           toast.duration = duration;

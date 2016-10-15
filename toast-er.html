@@ -156,40 +156,6 @@ Property   | Value           | Description
     -webkit-animation: cooking 1s linear 0.2s infinite;
     animation: cooking 1s linear 0.2s infinite;
   }
-  :host.top-left,
-  :host.bottom-left {
-    left: 0;
-  }
-  :host.top-left,
-  :host.top-right {
-    top: 0;
-    transform: translateY(0px);
-  }
-  :host.top-left paper-toast,
-  :host.top-right paper-toast {
-    top: 0;
-    transform: translateY(-100px);
-  }
-  :host.top-left paper-toast.paper-toast-open,
-  :host.top-right paper-toast.paper-toast-open {
-    top: 12px;
-    transform: translateY(0px);
-  }
-  :host.bottom-left,
-  :host.bottom-right {
-    bottom: 0;
-    transform: translateY(0px);
-  }
-  :host.bottom-left paper-toast,
-  :host.bottom-right paper-toast {
-    bottom: 0;
-    transform: translateY(100px);
-  }
-  :host.bottom-left paper-toast.paper-toast-open,
-  :host.bottom-right paper-toast.paper-toast-open {
-    bottom: 12px;
-    transform: translateY(0px);
-  }
   </style>
 
   <template>
@@ -330,7 +296,8 @@ Property   | Value           | Description
        * @param  {String} shelf (top-left, top-right, bottom-left, bottom-right) defines the toaster position
        */
       _turnOnTheToaster: function(type, heat, shelf) {
-        var grill = this.$.grill;
+        var grill = this.$.grill,
+          toast = this.$.toast;
         // Set the grill type.
         type = type && type.toLowerCase() || '';
         this.toggleClass('info', type === 'info', grill);
@@ -343,14 +310,9 @@ Property   | Value           | Description
         this.toggleClass('middle', heat === 'middle', grill);
         this.toggleClass('high', heat === 'high', grill);
         // Set the toaster position.
-        shelf = shelf && shelf.toLowerCase() || ''
-        this.toggleClass('top-left', shelf === 'top-left');
-        this.toggleClass('top-right', shelf === 'top-right');
-        this.toggleClass('bottom-left', shelf === 'bottom-left');
-        this.toggleClass('bottom-right', shelf === 'bottom-right');
-        if (shelf.indexOf('right') >= 0) {
-          this.style.right = (grill.clientWidth + 24) + 'px';
-        }
+        shelf = shelf && shelf.toLowerCase().split('-') || [];
+        toast.horizontalAlign = shelf[1] || "left";
+        toast.verticalAlign = shelf[0] || "bottom";
       },
 
       /**

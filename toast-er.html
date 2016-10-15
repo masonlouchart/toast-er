@@ -103,6 +103,14 @@ Property   | Value           | Description
     box-sizing: border-box;
     position: fixed;
   }
+  :host.top paper-toast {
+    top: 0;
+    transform: translateY(-100px);
+  }
+  :host.top paper-toast.paper-toast-open {
+    top: 12px;
+    transform: translateY(0px);
+  }
   #grill {
     position: absolute;
     bottom: 0px;
@@ -298,21 +306,25 @@ Property   | Value           | Description
       _turnOnTheToaster: function(type, heat, shelf) {
         var grill = this.$.grill,
           toast = this.$.toast;
+
         // Set the grill type.
         type = type && type.toLowerCase() || '';
         this.toggleClass('info', type === 'info', grill);
         this.toggleClass('success', type === 'success', grill);
         this.toggleClass('warning', type === 'warning', grill);
         this.toggleClass('error', type === 'error', grill);
+
         // Set the grill power.
         heat = heat && heat.toLowerCase() || '';
         this.toggleClass('low', heat === 'low', grill);
         this.toggleClass('middle', heat === 'middle', grill);
         this.toggleClass('high', heat === 'high', grill);
+
         // Set the toaster position.
         shelf = shelf && shelf.toLowerCase().split('-') || [];
-        toast.horizontalAlign = shelf[1] || "left";
-        toast.verticalAlign = shelf[0] || "bottom";
+        toast.horizontalAlign = shelf[1] || 'left';
+        toast.verticalAlign = shelf[0] || 'bottom';
+        this.toggleClass('top', toast.verticalAlign === 'top');
       },
 
       /**

@@ -22,19 +22,22 @@ limitations under the License.
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>toast-er Demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" type="css" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" type="css" href="../../iron-flex-layout/iron-flex-layout.html">
   <link rel="import" href="../toast-er.html">
-  <style type="text/css">
+  <style type="text/css" is="custom-style">
   body {
     font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: auto;
     margin-bottom: 50px;
     background: rgb(245, 245, 245);
+
+    @apply(--layout-horizontal);
+    @apply(--layout-center-justified);
   }
   p {
-      text-align: justify;
-      max-width: 900px;
-    }
+    text-align: justify;
+    max-width: 900px;
+  }
   h1, h2, h3 {
     color: rgb(255, 122, 0);
     margin-top: 40px;
@@ -55,8 +58,7 @@ limitations under the License.
 
 <body>
   <template id="app" is="dom-bind">
-  <div class="layout horizontal center-justified">
-    <div class="">
+    <div>
       <h1>toast-er for sale, almost new!</h1>
       <p>
         The toaster has a bin. So you can throw events without caring about
@@ -216,7 +218,6 @@ limitations under the License.
       </div>
     </div>
     <toast-er></toast-er>
-  </div>
   </template>
 
   <script>

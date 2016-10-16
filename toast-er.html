@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../iron-signals/iron-signals.html">
 
@@ -112,12 +113,15 @@ Property   | Value           | Description
     top: 12px;
     transform: translateY(0px);
   }
+  #button {
+    position: absolute;
+    top: 4px; bottom: 4px; right: 0;
+    z-index: 1;
+  }
   #grill {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    height: 5px;
-    width: 100%;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
   }
   .info {
     background-color: rgb(0, 186, 255);
@@ -168,8 +172,9 @@ Property   | Value           | Description
   </style>
 
   <template>
-    <paper-toast id="toast">
-      <span id="grill"></span>
+      <paper-toast id="toast">
+        <paper-button id="button" on-tap="_buttonTap" hidden></paper-button>
+        <span id="grill"></span>
     </paper-toast>
     <iron-signals on-iron-signal-toaster-bake="_bake"></iron-signals>
   </template>
@@ -189,6 +194,28 @@ Property   | Value           | Description
          */
         text: {
           type: String
+        },
+
+        /**
+         * Button text to display.
+         *
+         * @type {String}
+         * @default
+         */
+        buttonText: {
+          type: String,
+          value: ""
+        },
+
+        /**
+         * Event to fire when the button is pressed.
+         *
+         * @type {String}
+         * @default
+         */
+        buttonEvent: {
+          type: String,
+          value: "toast-er-button-pressed"
         },
 
         /**
@@ -262,6 +289,10 @@ Property   | Value           | Description
         }
       },
 
+      _buttonTap: function(event) {
+        this.fire(event.target.buttonEvent);
+      },
+
       /**
        * Shows message by unstacking of toasts.
        */
@@ -273,23 +304,32 @@ Property   | Value           | Description
           }, 1000);
           return;
         }
+
         // Get configuration of the toast.
         var bread = this._breads[0],
           duration = bread.duration || this.duration,
           type = bread.type || this.type,
           heat = bread.heat || this.heat,
           shelf = bread.shelf || this.shelf,
-          toast = this.$.toast;
+          toast = this.$.toast,
+          button = this.$.button;
+
         // Shows the toast.
         if (!toast.opened) {
           this.shift('_breads');
+
           toast.text = bread.text || this.text;
           toast.duration = duration;
+          button.hidden = (bread.buttonText || this.buttonText).length == 0;
+          button.textContent = bread.buttonText || this.buttonText;
+          button.buttonEvent = bread.buttonEvent || this.buttonEvent;
+
           this._turnOnTheToaster(type, heat, shelf);
           this.async(function() {
             toast.show();
           }, 100);
         }
+
         // Queue the next toast.
         this.async(function() {
           this._emptyTheToaster();

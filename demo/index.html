@@ -59,22 +59,10 @@ limitations under the License.
 <body>
   <template id="app" is="dom-bind">
     <div>
-      <h1>toast-er for sale, almost new!</h1>
-      <p>
-        The toaster has a bin. So you can throw events without caring about
-        displaying, all messages will be displayed with respecting of each
-        individual configuration (text, duration, style, position...).
-      </p>
-      <p>
-        <u>The default configuration is:</u>
-        <ul>
-          <li>duration of 3000 millisec</li>
-          <li>no type</li>
-          <li>no heat</li>
-          <li>shelf bottom-left</li>
-        </ul>
-      </p>
-      <button onclick="showStandard()">Toast by default</button>
+      <div>
+        <h2>Plain bread</h2>
+        <button onclick="showStandard()">Toast by default</button>
+      </div>
       <div>
         <h2>Spread the jam</h2>
         <table>
@@ -82,7 +70,7 @@ limitations under the License.
           <tr>
             <td>Attribute</td>
             <td>Value</td>
-            <td>Result</td>
+            <td>Demo</td>
           </tr>
           </thead>
           <tbody>
@@ -92,17 +80,17 @@ limitations under the License.
               <td><button onclick="showInfo()">Toast info</button></td>
             </tr>
             <tr>
-              <td>type</td>
+              <td></td>
               <td>success</td>
               <td><button onclick="showSuccess()">Toast success</button></td>
             </tr>
             <tr>
-              <td>type</td>
+              <td></td>
               <td>warning</td>
               <td><button onclick="showWarning()">Toast warning</button></td>
             </tr>
             <tr>
-              <td>type</td>
+              <td></td>
               <td>error</td>
               <td><button onclick="showError()">Toast error</button></td>
             </tr>
@@ -116,7 +104,7 @@ limitations under the License.
           <tr>
             <td>Attribute</td>
             <td>Value</td>
-            <td>Result</td>
+            <td>Demo</td>
           </tr>
           </thead>
           <tbody>
@@ -126,12 +114,12 @@ limitations under the License.
               <td><button onclick="durationOne()">Duration 1 sec</button></td>
             </tr>
             <tr>
-              <td>duration</td>
+              <td></td>
               <td>5000</td>
               <td><button onclick="durationFive()">Duration 5 sec</button></td>
             </tr>
             <tr>
-              <td>duration</td>
+              <td></td>
               <td>10000</td>
               <td><button onclick="durationTen()">Duration 10 sec</button></td>
             </tr>
@@ -145,7 +133,7 @@ limitations under the License.
           <tr>
             <td>Attribute</td>
             <td>Value</td>
-            <td>Result</td>
+            <td>Demo</td>
           </tr>
           </thead>
           <tbody>
@@ -155,12 +143,12 @@ limitations under the License.
               <td><button onclick="cookingOverHeatLow()">Cooking over heat low</button></td>
             </tr>
             <tr>
-              <td>heat</td>
+              <td></td>
               <td>middle</td>
               <td><button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button></td>
             </tr>
             <tr>
-              <td>heat</td>
+              <td></td>
               <td>high</td>
               <td><button onclick="cookingOverHeatHigh()">Cooking over heat high</button></td>
             </tr>
@@ -174,7 +162,7 @@ limitations under the License.
           <tr>
             <td>Attribute</td>
             <td>Value</td>
-            <td>Result</td>
+            <td>Demo</td>
           </tr>
           </thead>
           <tbody>
@@ -184,12 +172,12 @@ limitations under the License.
               <td><button onclick="positionShelfTopLeft()">Move to top-left shelf</button></td>
             </tr>
             <tr>
-              <td>shelf</td>
+              <td></td>
               <td>top-right</td>
               <td><button onclick="positionShelfTopRight()">Move to top-right shelf</button></td>
             </tr>
             <tr>
-              <td>shelf</td>
+              <td></td>
               <td>bottom-right</td>
               <td><button onclick="positionShelfBottomRight()">Move to bottom-right shelf</button></td>
             </tr>

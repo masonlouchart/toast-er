@@ -215,7 +215,7 @@ Property   | Value           | Description
          */
         buttonEvent: {
           type: String,
-          value: "toast-er-button-pressed"
+          value: "button-pressed"
         },
 
         /**
@@ -290,7 +290,7 @@ Property   | Value           | Description
       },
 
       _buttonTap: function(event) {
-        this.fire(event.target.buttonEvent);
+        this.fire("toast-er-" + event.target.buttonEvent);
       },
 
       /**

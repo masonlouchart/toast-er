@@ -48,7 +48,7 @@ Just put the tag in the index page...
     <toast-er type="warning" heat="middle"></toast-er>
     <toast-er shelf="top-right"></toast-er>
 
-...and fire some events, that's all !
+...and fire some events, that's all!
 
     <script>
     function someMethod() {
@@ -70,33 +70,34 @@ There are no required options excepted `text`!
 
 ## Audited events
 
-Name                        | Description
+Name                       | Description
 :--------------------------|:-----------
 `iron-signal-toaster-bake` | Shows the toast with received data
 
 ## Event detail properties
 
-Property   | Value           | Description
-:----------|:----------------|:------------
-`text`     | 'toaster text'  | The text shown by the toaster
-`type`     | 'info'          | Sets the color of toaster bottom to #00baff (cyan)
-           | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
-           | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
-           | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
-`duration` | 5000            | Sets the toast duration to 5 seconds (default: 3000)
-`heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
-           | 'middle'        | The toaster blinks with a transition in 2 seconds
-           | 'high'          | The toaster blinks with a transition in 1 second
-`shelf`    | 'top-right'     | Sets the toaster position to the top-right corner
-           | 'top-left'      | Sets the toaster position to the top-left corner
-           | 'bottom-right'  | Sets the toaster position to the bottom-right corner
-           | 'bottom-left'   | Sets the toaster position to the bottom-left corner
+Property     | Value           | Description
+:------------|:----------------|:------------
+`text`       | 'toaster text'  | The text shown by the toaster
+`buttonText` | 'button text'   | The text shown on the button, also toggles it
+`buttonEvent`| 'event-name'    | Event to fire when the button is pressed
+`type`       | 'info'          | Sets the color of toaster bottom to #00baff (cyan)
+             | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
+             | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
+             | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
+`duration`   | 5000            | Sets the toast duration to 5 seconds (default: 3000)
+`heat`       | 'low'           | The toaster blinks with a transition in 3 seconds
+             | 'middle'        | The toaster blinks with a transition in 2 seconds
+             | 'high'          | The toaster blinks with a transition in 1 second
+`shelf`      | 'top-right'     | Sets the toaster position to the top-right corner
+             | 'top-left'      | Sets the toaster position to the top-left corner
+             | 'bottom-right'  | Sets the toaster position to the bottom-right corner
+             | 'bottom-left'   | Sets the toaster position to the bottom-left corner
 
 @element toast-er
 @demo
-@demo https://LM450N.github.io/toast-er/components/toast-er/demo/
-@blurb Polymer toast with some extra features.
-@homepage https://LM450N.github.io/toast-er/components/toast-er/
+@blurb `paper-toast` with some swagg features.
+@homepage https://LM450N.github.io/toast-er/
 -->
 <dom-module id="toast-er">
   <style>

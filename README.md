@@ -15,7 +15,7 @@ Check out the [component page][component_page].
 1. Install The Component:
 
   ```sh
-  bower i -S toast-er
+  bower install --save toast-er
   ```
 
 2. Import Custom Element:

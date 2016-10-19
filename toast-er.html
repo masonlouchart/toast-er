@@ -19,24 +19,26 @@ limitations under the License.
 <link rel="import" href="../iron-signals/iron-signals.html">
 
 <!--
-Polymer toaster with some swagg features.
+`paper-toast` with some swagg features.
 
-The toaster has a bin. So you can throw events without caring about
-displaying, all messages will be displayed with respecting of each individual
-configuration (text, duration, style, position...).
+The toaster has a bin, where all signals are stored. This allows for multiple
+signals to be received at once, and they will be fulfilled in order of their
+receipt. Separate configurations are still maintained for each signal.
 
-The toaster makes 4 types of toast (info, success, warning and error). Each
-type sets a light at the bottom according to the level of 'dangerousity'.
+There are 4 types of toast (info, success, warning and error) that can be
+selected using the `type` property. Each type sets a light at the bottom of the
+toast according to the level of danger.
 
-You can also set the heat level (low, middle or high). The toast blink more or
-less speedily according to the defined level.
+You can also set the heat level (low, middle or high) using the `heat` property.
+The toast blinks more or less rapidly according to the defined level.
 
-You can choose on which shelf placing the toaster. There are 4 possibilities of
-course, the shelf at bottom-left (default), bottom-right, top-left and
+The toaster's shelf, or position, can be set using the `shelf` property.
+Possible values include bottom-left (default), bottom-right, top-left and
 top-right.
 <br>
 
-###Example:
+### Example
+
 Just put the tag in the index page...
 
     <toast-er></toast-er>
@@ -62,33 +64,32 @@ Just put the tag in the index page...
     }
     </script>
 
-There are no required options excepted `text` !
+There are no required options excepted `text`!
 <br><br>
 
-##Audited events:
+## Audited events
 
-Name                        | Method called | Description
-:---------------------------|:--------------|:-----------
-`iron-signal-toaster-bake`  | `_bake`       | Shows the toast with received data
-<br>
+Name                        | Description
+:--------------------------|:-----------
+`iron-signal-toaster-bake` | Shows the toast with received data
 
-##Event detail properties:
+## Event detail properties
 
 Property   | Value           | Description
 :----------|:----------------|:------------
-`text`     | 'What you want' | The text shown by the toaster
+`text`     | 'toaster text'  | The text shown by the toaster
 `type`     | 'info'          | Sets the color of toaster bottom to #00baff (cyan)
-`type`     | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
-`type`     | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
-`type`     | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
-`duration` | 5000 (millisec) | Sets the toast duration to 5 seconds (default: 3000)
+           | 'success'       | Sets the color of toaster bottom to #0bdb00 (green)
+           | 'warning'       | Sets the color of toaster bottom to #ffa800 (orange)
+           | 'error'         | Sets the color of toaster bottom to #fb0000 (red)
+`duration` | 5000            | Sets the toast duration to 5 seconds (default: 3000)
 `heat`     | 'low'           | The toaster blinks with a transition in 3 seconds
-`heat`     | 'middle'        | The toaster blinks with a transition in 2 seconds
-`heat`     | 'high'          | The toaster blinks with a transition in 1 second
+           | 'middle'        | The toaster blinks with a transition in 2 seconds
+           | 'high'          | The toaster blinks with a transition in 1 second
 `shelf`    | 'top-right'     | Sets the toaster position to the top-right corner
-`shelf`    | 'top-left'      | Sets the toaster position to the top-left corner
-`shelf`    | 'bottom-right'  | Sets the toaster position to the bottom-right corner
-`shelf`    | 'bottom-left'   | Sets the toaster position to the bottom-left corner
+           | 'top-left'      | Sets the toaster position to the top-left corner
+           | 'bottom-right'  | Sets the toaster position to the bottom-right corner
+           | 'bottom-left'   | Sets the toaster position to the bottom-left corner
 
 @element toast-er
 @demo

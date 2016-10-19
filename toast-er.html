@@ -308,22 +308,26 @@ Property     | Value           | Description
 
         // Get configuration of the toast.
         var bread = this._breads[0],
-          duration = bread.duration || this.duration,
-          type = bread.type || this.type,
+          buttonEvent = bread.buttonEvent || this.buttonEvent,
+          buttonText = bread.buttonText || this.buttonText,
+          hasButton = buttonText.length != 0,
+          duration = bread.duration || (hasButton ? 10000 : this.duration),
           heat = bread.heat || this.heat,
           shelf = bread.shelf || this.shelf,
-          toast = this.$.toast,
-          button = this.$.button;
+          text = bread.text || this.text,
+          type = bread.type || this.type,
+          toast = this.$.toast;
 
         // Shows the toast.
         if (!toast.opened) {
+          var button = this.$.button;
           this.shift('_breads');
 
-          toast.text = bread.text || this.text;
           toast.duration = duration;
-          button.hidden = (bread.buttonText || this.buttonText).length == 0;
-          button.textContent = bread.buttonText || this.buttonText;
-          button.buttonEvent = bread.buttonEvent || this.buttonEvent;
+          toast.text = text;
+          button.hidden = !hasButton;
+          button.buttonEvent = buttonEvent;
+          button.textContent = buttonText;
 
           this._turnOnTheToaster(type, heat, shelf);
           this.async(function() {

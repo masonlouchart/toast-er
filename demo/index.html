@@ -185,6 +185,25 @@ limitations under the License.
         </table>
       </div>
       <div>
+        <h2>Add a button to your toast</h2>
+        <table>
+          <thead>
+            <tr>
+              <td>Attribute</td>
+              <td>Value</td>
+              <td>Result</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>buttonText</td>
+              <td>Press Me</td>
+              <td><button onclick="showButtonToast()">Show toast with a button</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
         <h2>Stack the breads</h2>
         <p>
           The following button will fire 3 events with 3 different configurations
@@ -205,7 +224,7 @@ limitations under the License.
         <a href="https://twitter.com/LM450N">Twitter</a>
       </div>
     </div>
-    <toast-er></toast-er>
+    <toast-er on-toast-er-button-pressed="pressedButtonToast"></toast-er>
   </template>
 
   <script>
@@ -350,6 +369,25 @@ limitations under the License.
       data: {
         text: 'Bottom-right shelf',
         shelf: 'bottom-right'
+      }
+    });
+  };
+
+  var showButtonToast = function() {
+    app.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'Press the button. ->',
+        buttonText: 'Press Me'
+      }
+    });
+  };
+
+  app.pressedButtonToast = function() {
+    this.fire('iron-signal', {
+      name: 'toaster-bake',
+      data: {
+        text: 'You pressed the button.'
       }
     });
   };

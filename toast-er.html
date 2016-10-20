@@ -291,7 +291,9 @@ Property     | Value           | Description
       },
 
       _buttonTap: function(event) {
-        this.fire("toaster-" + event.target.buttonEvent);
+        this.fire('toaster-' + event.target.buttonEvent);
+        this.$.toast.close();
+        this._emptyTheToaster();
       },
 
       /**

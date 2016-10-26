@@ -44,4 +44,4 @@ _Don't forget add your name into the [CONTRIBUTORS.txt][contributors] file._
 [profile_page]: https://github.com/LM450N
 [component_page]: https://lm450n.github.io/toast-er/
 [contributors]: https://github.com/LM450N/toast-er/blob/master/CONTRIBUTORS.txt
-[license]: http://opensource.org/licenses/Apache-2.0
+[license]: https://github.com/LM450N/toast-er/blob/master/LICENSE.txt

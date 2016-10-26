@@ -1,22 +1,22 @@
 language: node_js
 node_js: stable
+sudo: required
+dist: trusty
 addons:
   firefox: latest
   sauce_connect: true
   apt:
     sources:
     - google-chrome
-    - ubuntu-toolchain-r-test
     packages:
     - google-chrome-stable
-    - g++-4.8
-before_script:
-- npm install -g bower polylint web-component-tester
+install:
+- npm install -g bower polymer-cli
+- npm install
 - bower install
-- polylint
 script:
-- xvfb-run wct
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct -s 'default'; fi
+- xvfb-run polymer test
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default'; fi
 env:
   global:
   - CXX=g++-4.8

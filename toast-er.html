@@ -301,7 +301,7 @@ Name                       | Description
         var msg = this._stack[0];
         var buttonText = msg.buttonText || this.buttonText;
         var hasButton = buttonText.length != 0;
-        var duration = msg.duration || (hasButton && this.duration < 10000) ? 10000 : this.duration;
+        var duration = msg.duration || (hasButton && this.duration < 10000 ? 10000 : this.duration);
         var blink = msg.blink || this.blink;
         var position = msg.position || this.position;
         var text = msg.text || this.text;

@@ -138,18 +138,18 @@ limitations under the License.
           </thead>
           <tbody>
             <tr>
-              <td>heat</td>
-              <td>low</td>
+              <td>blink</td>
+              <td>slow</td>
               <td><button onclick="cookingOverHeatLow()">Cooking over heat low</button></td>
             </tr>
             <tr>
               <td></td>
-              <td>middle</td>
+              <td>medium</td>
               <td><button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button></td>
             </tr>
             <tr>
               <td></td>
-              <td>high</td>
+              <td>fast</td>
               <td><button onclick="cookingOverHeatHigh()">Cooking over heat high</button></td>
             </tr>
           </tbody>
@@ -157,6 +157,9 @@ limitations under the License.
       </div>
       <div>
         <h2>Move the toaster of the kitchen shelf</h2>
+        <p>
+          The default position is bottom left.
+        </p>
         <table>
           <thead>
           <tr>
@@ -167,19 +170,19 @@ limitations under the License.
           </thead>
           <tbody>
             <tr>
-              <td>shelf</td>
+              <td>position</td>
               <td>top-left</td>
-              <td><button onclick="positionShelfTopLeft()">Move to top-left shelf</button></td>
+              <td><button onclick="positionShelfTopLeft()">Top-left shelf</button></td>
             </tr>
             <tr>
               <td></td>
               <td>top-right</td>
-              <td><button onclick="positionShelfTopRight()">Move to top-right shelf</button></td>
+              <td><button onclick="positionShelfTopRight()">Top-right shelf</button></td>
             </tr>
             <tr>
               <td></td>
               <td>bottom-right</td>
-              <td><button onclick="positionShelfBottomRight()">Move to bottom-right shelf</button></td>
+              <td><button onclick="positionShelfBottomRight()">Bottom-right shelf</button></td>
             </tr>
           </tbody>
         </table>
@@ -210,9 +213,9 @@ limitations under the License.
           by interval of 1500 millisec.<br><small>To be able to pass under this limit
           the async bin must be improved.</small>
           <ul>
-            <li>1st: type info, heat low</li>
-            <li>2nd: type warning, heat middle, shelf top-left, duration 2000</li>
-            <li>3rd: type error, heat high, shelf top-right, duration 6000</li>
+            <li>1st: type info, blink slow</li>
+            <li>2nd: type warning, blink medium, position top-left, duration 2000</li>
+            <li>3rd: type error, blink fast, position top-right, duration 6000</li>
           </ul>
         </p>
         <button onclick="stackTheBreads()">Stack the breads</button>
@@ -230,7 +233,7 @@ limitations under the License.
   <script>
   var showStandard = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Put some bread into the toaster please'
       }
@@ -239,7 +242,7 @@ limitations under the License.
 
   var showInfo = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'The bread is almost cooked...',
         type: 'info'
@@ -249,7 +252,7 @@ limitations under the License.
 
   var showSuccess = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Congratulations, your bread is tasty :D',
         type: 'success'
@@ -259,7 +262,7 @@ limitations under the License.
 
   var showWarning = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Be careful, the bread is burning...',
         type: 'warning'
@@ -269,7 +272,7 @@ limitations under the License.
 
   var showError = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Damn, your bread is completely burned!',
         type: 'error'
@@ -279,7 +282,7 @@ limitations under the License.
 
   var durationOne = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Too Fast!',
         duration: 1000
@@ -289,7 +292,7 @@ limitations under the License.
 
   var durationFive = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'What can you do in five seconds? Save the world?',
         duration: 5000
@@ -299,7 +302,7 @@ limitations under the License.
 
   var durationTen = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'Sometimes, ten seconds can seem long... quite long...',
         duration: 10000
@@ -309,75 +312,75 @@ limitations under the License.
 
   var cookingOverHeatHigh = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'The grill does the transition in 1 sec!',
+        text: 'The underline is blinking in 1 sec!',
         type: 'success',
         duration: 5000,
-        heat: 'high'
+        blink: 'fast'
       }
     });
   };
 
   var cookingOverHeatMiddle = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'The grill does the transition in 2 sec.',
+        text: 'The underline is blinking in 2 sec.',
         type: 'success',
         duration: 5000,
-        heat: 'middle'
+        blink: 'medium'
       }
     });
   };
 
   var cookingOverHeatLow = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'The grill does the transition in 3 sec.',
+        text: 'The underline is blinking in 3 sec.',
         type: 'success',
         duration: 5000,
-        heat: 'low'
+        blink: 'slow'
       }
     });
   };
 
   var positionShelfTopLeft = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'Top-left shelf',
-        shelf: 'top-left'
+        text: 'Top-left position',
+        position: 'top-left'
       }
     });
   };
 
   var positionShelfTopRight = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'Top-right shelf',
-        shelf: 'top-right'
+        text: 'Top-right position',
+        position: 'top-right'
       }
     });
   };
 
   var positionShelfBottomRight = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'Bottom-right shelf',
-        shelf: 'bottom-right'
+        text: 'Bottom-right position',
+        position: 'bottom-right'
       }
     });
   };
 
   var showButtonToast = function() {
     app.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
-        text: 'Press the button. ->',
+        text: 'Press the button',
         buttonText: 'Press Me'
       }
     });
@@ -385,7 +388,7 @@ limitations under the License.
 
   app.pressedButtonToast = function() {
     this.fire('iron-signal', {
-      name: 'toaster-bake',
+      name: 'toaster-show',
       data: {
         text: 'You pressed the button.'
       }
@@ -395,39 +398,39 @@ limitations under the License.
   var stackTheBreads = function() {
     app.async(function() {
       this.fire('iron-signal', {
-        name: 'toaster-bake',
+        name: 'toaster-show',
         data: {
-          text: '1st: type info, heat low',
+          text: '1st: type info, blink slow',
           type: 'info',
-          heat: 'low'
+          blink: 'slow'
         }
       });
     }, 100);
     app.async(function() {
       this.fire('iron-signal', {
-        name: 'toaster-bake',
+        name: 'toaster-show',
         data: {
-          text: '2nd: type warning, heat middle, shelf top-left, duration 2000',
+          text: '2nd: type warning, blink medium, position top-left, duration 2000',
           type: 'warning',
-          heat: 'middle',
-          shelf: 'top-left',
+          blink: 'medium',
+          position: 'top-left',
           duration: 2000
         }
       });
     }, 1500);
     app.async(function() {
       this.fire('iron-signal', {
-        name: 'toaster-bake',
+        name: 'toaster-show',
         data: {
-          text: '3rd: type error, heat high, shelf top-right, duration 6000',
+          text: '3rd: type error, blink fast, position top-right, duration 6000',
           type: 'error',
-          heat: 'high',
-          shelf: 'top-right',
+          blink: 'fast',
+          position: 'top-right',
           duration: 6000
         }
       });
     }, 3000);
-  }
+  };
   </script>
 
 </body>

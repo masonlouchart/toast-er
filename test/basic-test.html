@@ -67,7 +67,7 @@ limitations under the License.
 
       function fire(done) {
         toast.fire('iron-signal', {
-          name: 'toaster-bake',
+          name: 'toaster-show',
           data: {
             text: toast.type
           }
@@ -86,7 +86,7 @@ limitations under the License.
         });
 
         it('has no underline blinking', function() {
-          expect(toast.$.grill.style.opacity).to.be.empty;
+          expect(toast.$.underline.style.opacity).to.be.empty;
         });
       });
 
@@ -101,7 +101,7 @@ limitations under the License.
         });
 
         it('has the class style `info`', function() {
-          expect(toast.$.grill.className).to.contain('info');
+          expect(toast.$.underline.className).to.contain('info');
         });
       });
 
@@ -116,7 +116,7 @@ limitations under the License.
         });
 
         it('has the class style `warning`', function() {
-          expect(toast.$.grill.className).to.include('warning');
+          expect(toast.$.underline.className).to.include('warning');
         });
       });
 
@@ -131,7 +131,7 @@ limitations under the License.
         });
 
         it('has the class style `error`', function() {
-          expect(toast.$.grill.className).to.include('error');
+          expect(toast.$.underline.className).to.include('error');
         });
       });
 
@@ -146,7 +146,7 @@ limitations under the License.
         });
 
         it('has the class style `success`', function() {
-          expect(toast.$.grill.className).to.include('success');
+          expect(toast.$.underline.className).to.include('success');
         });
       });
     });

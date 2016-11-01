@@ -1,0 +1,38 @@
+{
+  "name": "toast-er",
+  "version": "1.0.0",
+  "authors": [
+    "Mason Louchart <louchart.mason@gmail.com>"
+  ],
+  "description": "Polymer toaster with some swagg features (queue, styles, position, blinking...).",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "seed",
+    "toast"
+  ],
+  "main": "toast-er.html",
+  "license": "Apache License 2.0",
+  "homepage": "https://LM450N.github.io/toast-er/components/toast-er/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LM450N/toast-er.git"
+  },
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.4",
+    "paper-toast": "PolymerElements/paper-toast#~1.3.0",
+    "iron-signals": "PolymerElements/iron-signals#~1.0.3",
+    "paper-button": "PolymerElements/paper-button#^1.0.13"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*",
+    "paper-button": "PolymerElements/paper-button#~1.0.13"
+  }
+}

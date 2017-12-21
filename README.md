@@ -1,6 +1,6 @@
 # &lt;toast-er&gt;
 
-[![Build Status](https://travis-ci.org/LM450N/toast-er.svg?branch=master)](https://travis-ci.org/LM450N/toast-er)
+[![Build Status](https://travis-ci.org/masonlouchart/toast-er.svg?branch=master)](https://travis-ci.org/masonlouchart/toast-er)
 
 `paper-toast` with some swagg features.
 
@@ -41,7 +41,7 @@ _Don't forget add your name into the [CONTRIBUTORS.txt][contributors] file._
 [Apache License 2.0][license].
 
 <!-- links -->
-[profile_page]: https://github.com/LM450N
-[component_page]: https://lm450n.github.io/toast-er/
-[contributors]: https://github.com/LM450N/toast-er/blob/master/CONTRIBUTORS.txt
-[license]: https://github.com/LM450N/toast-er/blob/master/LICENSE.txt
+[profile_page]: https://github.com/masonlouchart
+[component_page]: https://masonlouchart.github.io/toast-er/
+[contributors]: https://github.com/masonlouchart/toast-er/blob/master/CONTRIBUTORS.txt
+[license]: https://github.com/masonlouchart/toast-er/blob/master/LICENSE.txt

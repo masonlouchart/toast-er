@@ -14,10 +14,10 @@
   ],
   "main": "toast-er.html",
   "license": "Apache License 2.0",
-  "homepage": "https://LM450N.github.io/toast-er/components/toast-er/",
+  "homepage": "https://masonlouchart.github.io/toast-er/components/toast-er/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LM450N/toast-er.git"
+    "url": "https://github.com/masonlouchart/toast-er.git"
   },
   "ignore": [
     "/.*",

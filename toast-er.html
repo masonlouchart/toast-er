@@ -17,7 +17,7 @@ limitations under the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
-<link rel="import" href="../iron-signals/iron-signals.html">
+<link rel="import" href="../lite-signal/lite-signal.html">
 
 <!--
 `paper-toast` with some swagg features.
@@ -52,16 +52,22 @@ Just put the tag in the index page...
 
     <script>
     function someMethod() {
-      this.fire('iron-signal', {
-        name: 'toaster-show',
-        data: {
-          text: 'You are not allowed to do this.',
-          type: 'error',
-          duration: 5000,
-          blink: 'fast',
-          position: 'top-right'
-        }
-      });
+      this.dispatchEvent(
+        new CustomEvent('lite-signal', {
+          bubbles: true,
+          compose: true, // to cross Shadow DOM boundaries,
+          detail: {
+            name: 'toaster-show',
+            data: {
+              text: 'You are not allowed to do this.',
+              type: 'error',
+              duration: 5000,
+              blink: 'fast',
+              position: 'top-right'
+            }
+          }
+        })
+      );
     }
     </script>
 
@@ -72,101 +78,104 @@ There are no required options excepted `text`!
 
 Name                       | Description
 :--------------------------|:----------
-`iron-signal-toaster-show` | Shows the toast with received data
+`lite-signal-toaster-show` | Shows the toast with received data
 
-@element toast-er
-@demo
+@customElement
+@polymer
+@demo demo/index.html
 @blurb `paper-toast` with some swagg features.
 @homepage https://masonlouchart.github.io/toast-er/
 -->
 <dom-module id="toast-er">
-  <style>
-  :host {
-    display: inline-block;
-    box-sizing: border-box;
-    position: fixed;
-  }
-  :host.top paper-toast {
-    top: 0;
-    transform: translateY(-100px);
-  }
-  :host.top paper-toast.paper-toast-open {
-    top: 12px;
-    transform: translateY(0px);
-  }
-  #button {
-    position: absolute;
-    top: 4px; bottom: 4px; right: 0;
-    z-index: 1;
-  }
-  #underline {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 4px;
-  }
-  .info {
-    background-color: rgb(0, 186, 255);
-  }
-  .success {
-    background-color: rgb(11, 219, 0);
-  }
-  .warning {
-    background-color: rgb(255, 168, 0);
-  }
-  .error {
-    background-color: rgb(251, 0, 0);
-  }
-  @-webkit-keyframes cooking {
-    from {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes cooking {
-    from {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  .slow {
-    -webkit-animation: cooking 3s linear 0.2s infinite;
-    animation: cooking 3s linear 0.2s infinite;
-  }
-  .medium {
-    -webkit-animation: cooking 2s linear 0.2s infinite;
-    animation: cooking 2s linear 0.2s infinite;
-  }
-  .fast {
-    -webkit-animation: cooking 1s linear 0.2s infinite;
-    animation: cooking 1s linear 0.2s infinite;
-  }
-  </style>
-
   <template>
+    <style>
+    :host {
+      display: inline-block;
+      box-sizing: border-box;
+      position: fixed;
+    }
+    :host.top paper-toast {
+      top: 0;
+      transform: translateY(-100px);
+    }
+    :host.top paper-toast.paper-toast-open {
+      top: 12px;
+      transform: translateY(0px);
+    }
+    #button {
+      position: absolute;
+      top: 4px; bottom: 4px; right: 0;
+      z-index: 1;
+    }
+    #underline {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .info {
+      background-color: rgb(0, 186, 255);
+    }
+    .success {
+      background-color: rgb(11, 219, 0);
+    }
+    .warning {
+      background-color: rgb(255, 168, 0);
+    }
+    .error {
+      background-color: rgb(251, 0, 0);
+    }
+    @-webkit-keyframes cooking {
+      from {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes cooking {
+      from {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .slow {
+      -webkit-animation: cooking 3s linear 0.2s infinite;
+      animation: cooking 3s linear 0.2s infinite;
+    }
+    .medium {
+      -webkit-animation: cooking 2s linear 0.2s infinite;
+      animation: cooking 2s linear 0.2s infinite;
+    }
+    .fast {
+      -webkit-animation: cooking 1s linear 0.2s infinite;
+      animation: cooking 1s linear 0.2s infinite;
+    }
+    </style>
+
     <paper-toast id="toast">
       <paper-button id="button" on-tap="_buttonTap" hidden></paper-button>
       <span id="underline"></span>
     </paper-toast>
-    <iron-signals on-iron-signal-toaster-show="_putInStack"></iron-signals>
+    <lite-signal on-lite-signal-toaster-show="_putInStack"></lite-signal>
   </template>
 
   <script>
-  (function() {
-    Polymer({
+  class Toaster extends Polymer.Element {
 
-      is: 'toast-er',
+    static get is() {
+      return 'toast-er';
+    }
 
-      properties: {
+    static get properties() {
+      return {
         /**
          * The text shown by the toast.
          *
@@ -262,118 +271,124 @@ Name                       | Description
             return [];
           }
         }
-      },
+      }
+    }
 
-      /**
-       * Shows the toast then `_shift` the stack.
-       *
-       * @param {Object} event    iron-signal-toaster-show
-       * @param {Object} message  to display can contains `text` {String},
-       * `type` {String}, `duration` {Number}, `blink` {String} and `position` {String}
-       */
-      _putInStack: function(event, message) {
-        var text = message.text || this.text;
-        if (text && text.trim().length) {
-          this.push('_stack', message);
-          this._shift();
-        }
-      },
-
-      _buttonTap: function(event) {
-        this.fire('toaster-' + event.target.buttonEvent);
-        this.$.toast.close();
+    /**
+      * Shows the toast then `_shift` the stack.
+      *
+      * @param {Object} event    lite-signal-toaster-show
+      * @param {Object} message  to display can contains `text` {String},
+      * `type` {String}, `duration` {Number}, `blink` {String} and `position` {String}
+      */
+    _putInStack(event, message) {
+      let text = message.text || this.text;
+      if (text && text.trim().length) {
+        this.push('_stack', message);
         this._shift();
-      },
+      }
+    }
 
-      /**
-       * Shows message by unstacking of toasts.
-       */
-      _shift: function() {
-        // Turn off the toaster if the queue is empty.
-        if (!this._stack.length) {
-          this.async(function() {
-            this._hideToast();
-          }, 1000);
-          return;
+    _buttonTap(event) {
+      this.dispatchEvent(new CustomEvent(
+        'toaster-' + event.target.buttonEvent, {
+          bubbles: true,
+          composed: true
         }
+      ));
+      this.$.toast.close();
+      this._shift();
+    }
 
-        // Get configuration of the toast.
-        var msg = this._stack[0];
-        var buttonText = msg.buttonText || this.buttonText;
-        var hasButton = buttonText.length != 0;
-        var duration = msg.duration || (hasButton && this.duration < 10000 ? 10000 : this.duration);
-        var blink = msg.blink || this.blink;
-        var position = msg.position || this.position;
-        var text = msg.text || this.text;
-        var type = msg.type || this.type;
-        var toast = this.$.toast;
-
-        // Shows the toast.
-        if (!toast.opened) {
-          var button = this.$.button;
-          this.shift('_stack');
-
-          toast.duration = duration;
-          toast.text = text;
-          button.hidden = !hasButton;
-          button.buttonEvent = msg.buttonEvent || this.buttonEvent;
-          button.textContent = buttonText;
-
-          this._displayToast(type, blink, position);
-          this.async(function() {
-            toast.show();
-          }, 100);
-        }
-
-        // Queue the next toast.
-        this.async(function() {
-          this._shift();
-        }, duration + 500);
-      },
-
-      /**
-       * Sets the toaster bottom color according to the given type, defines the
-       * blinking speed and sets the toast position.
-       *
-       * @param  {String} type  (info | success | warning | error) defines the toaster bottom color
-       * @param  {String} blink  (slow | medium | fast) defines the blinking speed
-       * @param  {String} position (top-left, top-right, bottom-left, bottom-right) defines the toaster position
-       */
-      _displayToast: function(type, blink, position) {
-        var underline = this.$.underline;
-        var toast = this.$.toast;
-
-        // Set the underline type.
-        type = type && type.toLowerCase() || '';
-        this.toggleClass('info', type === 'info', underline);
-        this.toggleClass('success', type === 'success', underline);
-        this.toggleClass('warning', type === 'warning', underline);
-        this.toggleClass('error', type === 'error', underline);
-
-        // Set the blink speed.
-        blink = blink && blink.toLowerCase() || '';
-        this.toggleClass('slow', blink === 'slow', underline);
-        this.toggleClass('medium', blink === 'medium', underline);
-        this.toggleClass('fast', blink === 'fast', underline);
-
-        // Set the toaster position.
-        position = position && position.toLowerCase().split('-') || [];
-        toast.horizontalAlign = position[1] || 'left';
-        toast.verticalAlign = position[0] || 'bottom';
-        this.toggleClass('top', toast.verticalAlign === 'top');
-      },
-
-      /**
-       * Disables toaster bottom color and blinking.
-       */
-      _hideToast: function() {
-        var underline = this.$.underline;
-        this.toggleClass('slow', false, underline);
-        this.toggleClass('medium', false, underline);
-        this.toggleClass('fast', false, underline);
+    /**
+      * Shows message by unstacking of toasts.
+      */
+    _shift() {
+      // Turn off the toaster if the queue is empty.
+      if (!this._stack.length) {
+        setTimeout(() => {
+          this._hideToast();
+        }, 1000);
+        return;
       }
 
-    });
-  })();
+      // Get configuration of the toast.
+      let msg = this._stack[0];
+      let buttonText = msg.buttonText || this.buttonText;
+      let hasButton = buttonText.length != 0;
+      let duration = msg.duration || (hasButton && this.duration < 10000 ? 10000 : this.duration);
+      let blink = msg.blink || this.blink;
+      let position = msg.position || this.position;
+      let text = msg.text || this.text;
+      let type = msg.type || this.type;
+      let toast = this.$.toast;
+
+      // Shows the toast.
+      if (!toast.opened) {
+        let button = this.$.button;
+        this.shift('_stack');
+
+        toast.duration = duration;
+        toast.text = text;
+        button.hidden = !hasButton;
+        button.buttonEvent = msg.buttonEvent || this.buttonEvent;
+        button.textContent = buttonText;
+
+        this._displayToast(type, blink, position);
+        setTimeout(() => {
+          toast.show();
+        }, 100);
+      }
+
+      // Queue the next toast.
+      setTimeout(() => {
+        this._shift();
+      }, duration + 500);
+    }
+
+    /**
+      * Sets the toaster bottom color according to the given type, defines the
+      * blinking speed and sets the toast position.
+      *
+      * @param  {String} type  (info | success | warning | error) defines the toaster bottom color
+      * @param  {String} blink  (slow | medium | fast) defines the blinking speed
+      * @param  {String} position (top-left, top-right, bottom-left, bottom-right) defines the toaster position
+      */
+    _displayToast(type, blink, position) {
+      let underline = this.$.underline;
+      let toast = this.$.toast;
+
+      // Set the underline type.
+      type = type && type.toLowerCase() || '';
+      underline.classList.toggle('info', type === 'info');
+      underline.classList.toggle('success', type === 'success');
+      underline.classList.toggle('warning', type === 'warning');
+      underline.classList.toggle('error', type === 'error');
+
+      // Set the blink speed.
+      blink = blink && blink.toLowerCase() || '';
+      underline.classList.toggle('slow', blink === 'slow');
+      underline.classList.toggle('medium', blink === 'medium');
+      underline.classList.toggle('fast', blink === 'fast');
+
+      // Set the toaster position.
+      position = position && position.toLowerCase().split('-') || [];
+      toast.horizontalAlign = position[1] || 'left';
+      toast.verticalAlign = position[0] || 'bottom';
+      this.classList.toggle('top', toast.verticalAlign === 'top');
+    }
+
+    /**
+      * Disables toaster bottom color and blinking.
+      */
+    _hideToast() {
+      let underline = this.$.underline;
+      underline.classList.remove('slow');
+      underline.classList.remove('medium');
+      underline.classList.remove('fast');
+    }
+  }
+
+  customElements.define(Toaster.is, Toaster);
   </script>
 </dom-module>

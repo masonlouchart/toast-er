@@ -22,17 +22,20 @@ limitations under the License.
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>toast-er Demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" type="css" href="../../iron-flex-layout/iron-flex-layout.html">
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  
   <link rel="import" href="../toast-er.html">
-  <style type="text/css" is="custom-style">
+  <style type="text/css" is="custom-style" include="demo-pages-shared-styles">
   body {
     font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: auto;
     margin-bottom: 50px;
     background: rgb(245, 245, 245);
 
-    @apply(--layout-horizontal);
-    @apply(--layout-center-justified);
+    @apply --layout-horizontal;
+    @apply --layout-center-justified;
   }
   p {
     text-align: justify;
@@ -57,382 +60,158 @@ limitations under the License.
 </head>
 
 <body>
-  <template id="app" is="dom-bind">
-    <div>
-      <div>
-        <h2>Plain bread</h2>
-        <button onclick="showStandard()">Toast by default</button>
-      </div>
-      <div>
-        <h2>Spread the jam</h2>
-        <table>
-          <thead>
-          <tr>
-            <td>Attribute</td>
-            <td>Value</td>
-            <td>Demo</td>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>type</td>
-              <td>info</td>
-              <td><button onclick="showInfo()">Toast info</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>success</td>
-              <td><button onclick="showSuccess()">Toast success</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>warning</td>
-              <td><button onclick="showWarning()">Toast warning</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>error</td>
-              <td><button onclick="showError()">Toast error</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Set the cooking duration</h2>
-        <table>
-          <thead>
-          <tr>
-            <td>Attribute</td>
-            <td>Value</td>
-            <td>Demo</td>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>duration</td>
-              <td>1000</td>
-              <td><button onclick="durationOne()">Duration 1 sec</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>5000</td>
-              <td><button onclick="durationFive()">Duration 5 sec</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>10000</td>
-              <td><button onclick="durationTen()">Duration 10 sec</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Cook some breads</h2>
-        <table>
-          <thead>
-          <tr>
-            <td>Attribute</td>
-            <td>Value</td>
-            <td>Demo</td>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>blink</td>
-              <td>slow</td>
-              <td><button onclick="cookingOverHeatLow()">Cooking over heat low</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>medium</td>
-              <td><button onclick="cookingOverHeatMiddle()">Cooking over heat middle</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>fast</td>
-              <td><button onclick="cookingOverHeatHigh()">Cooking over heat high</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Move the toaster of the kitchen shelf</h2>
-        <p>
-          The default position is bottom left.
-        </p>
-        <table>
-          <thead>
-          <tr>
-            <td>Attribute</td>
-            <td>Value</td>
-            <td>Demo</td>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>position</td>
-              <td>top-left</td>
-              <td><button onclick="positionShelfTopLeft()">Top-left shelf</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>top-right</td>
-              <td><button onclick="positionShelfTopRight()">Top-right shelf</button></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>bottom-right</td>
-              <td><button onclick="positionShelfBottomRight()">Bottom-right shelf</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Add a button to your toast</h2>
-        <table>
-          <thead>
-            <tr>
-              <td>Attribute</td>
-              <td>Value</td>
-              <td>Result</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>buttonText</td>
-              <td>Press Me</td>
-              <td><button onclick="showButtonToast()">Show toast with a button</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Stack the breads</h2>
-        <p>
-          The following button will fire 3 events with 3 different configurations
-          by interval of 1500 millisec.<br><small>To be able to pass under this limit
-          the async bin must be improved.</small>
-          <ul>
-            <li>1st: type info, blink slow</li>
-            <li>2nd: type warning, blink medium, position top-left, duration 2000</li>
-            <li>3rd: type error, blink fast, position top-right, duration 6000</li>
-          </ul>
-        </p>
+
+  <div>
+    <demo-snippet>
+      <label for="text">Text:</label>
+      <br>
+      <input type="text" id="text" value="Hello World!">
+      <i>(Toast not displayed of no text or empty.)</i>
+      <br>
+      <h3>Options</h3>
+      <label for="type">Type:</label>
+      <select name="type" id="type">
+        <option value="">Default</option>
+        <option value="info">info</option>
+        <option value="success">success</option>
+        <option value="warning">warning</option>
+        <option value="error">error</option>
+      </select>
+      <br>
+      <label for="duration">Duration</label>
+      <select name="duration" id="duration">
+        <option value="">Default</option>
+        <option value="1000">1000</option>
+        <option value="3000">3000</option>
+        <option value="5000">5000</option>
+      </select>
+      <span>ms</span>
+      <br>
+      <label for="position">Position</label>
+      <select name="position" id="position">
+        <option value="">Default</option>
+        <option value="top-left">top-left</option>
+        <option value="top-right">top-right</option>
+        <option value="bottom-right">bottom-right</option>
+      </select>
+      <br>
+      <label for="blink">Blink</label>
+      <select name="blink" id="blink">
+        <option value="">Default</option>
+        <option value="slow">slow</option>
+        <option value="medium">medium</option>
+        <option value="fast">fast</option>
+      </select>
+      <br><br>
+      <template id="demo">
+        <!-- The form is hidden... -->
+        <button onclick="showToast()">Show</button>
+        <toast-er></toast-er>
+
+        <script>
+          let showToast = function () {
+            // Get values from the form.
+            let text = document.getElementById('text').value;
+            let type = document.getElementById('type').value;
+            let duration = document.getElementById('duration').value;
+            let position = document.getElementById('position').value;
+            let blink = document.getElementById('blink').value;
+            // Fire event to display the toast.
+            demo.dispatchEvent(new CustomEvent('lite-signal', {
+              bubbles: true,
+              compose: true,
+              detail: {
+                name: 'toaster-show',
+                data: {
+                  text: text,
+                  type: type,
+                  duration: duration,
+                  position: position,
+                  blink: blink
+                }
+              }
+            }));
+          };
+        </script>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <div>
+    <demo-snippet>
+      <h2>Stack the breads</h2>
+      <p>
+        The following button will fire 3 events with 3 different configurations by interval
+        of 1500 millisec.
+        <br>
+        <small>To be able to pass under this limit the async bin must be improved.</small>
+        <ul>
+          <li>1st: type info, blink slow</li>
+          <li>2nd: type warning, blink medium, position top-left, duration 2000</li>
+          <li>3rd: type error, blink fast, position top-right, duration 6000</li>
+        </ul>
+      </p>
+      <template id="demo2">
         <button onclick="stackTheBreads()">Stack the breads</button>
-      </div>
-      <div>
-        <h3>Initial author</h3>
-        Mason Louchart - is on
-        <a href="https://github.com/masonlouchart">GitHub</a> and
-        <a href="https://twitter.com/mlouchart">Twitter</a>
-      </div>
-    </div>
-    <toast-er on-toaster-button-pressed="pressedButtonToast"></toast-er>
-  </template>
+        <script>
+          var stackTheBreads = function () {
+            // 1st: type info, blink slow
+            this.setTimeout(function () {
+              demo2.dispatchEvent(new CustomEvent('lite-signal', {
+                bubbles: true,
+                compose: true,
+                detail: {
+                  name: 'toaster-show',
+                  data: {
+                    text: '1st: type info, blink slow',
+                    type: 'info',
+                    blink: 'slow'
+                  }
+                }
+              }));
+            }, 100);
 
-  <script>
-  var showStandard = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Put some bread into the toaster please'
-      }
-    });
-  };
+            // 2nd: type warning, blink medium, position top-left, duration 2000
+            this.setTimeout(function () {
+              demo2.dispatchEvent(new CustomEvent('lite-signal', {
+                bubbles: true,
+                compose: true,
+                detail: {
+                  name: 'toaster-show',
+                  data: {
+                    text: '2nd: type warning, blink medium, position top-left, duration 2000',
+                    type: 'warning',
+                    blink: 'medium',
+                    position: 'top-left',
+                    duration: 2000
+                  }
+                }
+              }));
+            }, 1500);
 
-  var showInfo = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'The bread is almost cooked...',
-        type: 'info'
-      }
-    });
-  };
-
-  var showSuccess = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Congratulations, your bread is tasty :D',
-        type: 'success'
-      }
-    });
-  };
-
-  var showWarning = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Be careful, the bread is burning...',
-        type: 'warning'
-      }
-    });
-  };
-
-  var showError = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Damn, your bread is completely burned!',
-        type: 'error'
-      }
-    });
-  };
-
-  var durationOne = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Too Fast!',
-        duration: 1000
-      }
-    });
-  };
-
-  var durationFive = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'What can you do in five seconds? Save the world?',
-        duration: 5000
-      }
-    });
-  };
-
-  var durationTen = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Sometimes, ten seconds can seem long... quite long...',
-        duration: 10000
-      }
-    });
-  };
-
-  var cookingOverHeatHigh = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'The underline is blinking in 1 sec!',
-        type: 'success',
-        duration: 5000,
-        blink: 'fast'
-      }
-    });
-  };
-
-  var cookingOverHeatMiddle = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'The underline is blinking in 2 sec.',
-        type: 'success',
-        duration: 5000,
-        blink: 'medium'
-      }
-    });
-  };
-
-  var cookingOverHeatLow = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'The underline is blinking in 3 sec.',
-        type: 'success',
-        duration: 5000,
-        blink: 'slow'
-      }
-    });
-  };
-
-  var positionShelfTopLeft = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Top-left position',
-        position: 'top-left'
-      }
-    });
-  };
-
-  var positionShelfTopRight = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Top-right position',
-        position: 'top-right'
-      }
-    });
-  };
-
-  var positionShelfBottomRight = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Bottom-right position',
-        position: 'bottom-right'
-      }
-    });
-  };
-
-  var showButtonToast = function() {
-    app.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'Press the button',
-        buttonText: 'Press Me'
-      }
-    });
-  };
-
-  app.pressedButtonToast = function() {
-    this.fire('iron-signal', {
-      name: 'toaster-show',
-      data: {
-        text: 'You pressed the button.'
-      }
-    });
-  };
-
-  var stackTheBreads = function() {
-    app.async(function() {
-      this.fire('iron-signal', {
-        name: 'toaster-show',
-        data: {
-          text: '1st: type info, blink slow',
-          type: 'info',
-          blink: 'slow'
-        }
-      });
-    }, 100);
-    app.async(function() {
-      this.fire('iron-signal', {
-        name: 'toaster-show',
-        data: {
-          text: '2nd: type warning, blink medium, position top-left, duration 2000',
-          type: 'warning',
-          blink: 'medium',
-          position: 'top-left',
-          duration: 2000
-        }
-      });
-    }, 1500);
-    app.async(function() {
-      this.fire('iron-signal', {
-        name: 'toaster-show',
-        data: {
-          text: '3rd: type error, blink fast, position top-right, duration 6000',
-          type: 'error',
-          blink: 'fast',
-          position: 'top-right',
-          duration: 6000
-        }
-      });
-    }, 3000);
-  };
-  </script>
-
+            // 3rd: type error, blink fast, position top-right, duration 6000
+            this.setTimeout(function () {
+              demo2.dispatchEvent(new CustomEvent('lite-signal', {
+                bubbles: true,
+                compose: true,
+                detail: {
+                  name: 'toaster-show',
+                  data: {
+                    text: '3rd: type error, blink fast, position top-right, duration 6000',
+                    type: 'error',
+                    blink: 'fast',
+                    position: 'top-right',
+                    duration: 6000
+                  }
+                }
+              }));
+            }, 3000);
+          };
+        </script>
+      </template>
+    </demo-snippet>
+  </div>
+  
 </body>
 
 </html>

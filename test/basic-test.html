@@ -63,15 +63,19 @@ limitations under the License.
 
   <script>
     describe('toast-er', function() {
-      var toast;
+      let toast;
 
       function fire(done) {
-        toast.fire('iron-signal', {
-          name: 'toaster-show',
-          data: {
-            text: toast.type
+        toast.dispatchEvent(new CustomEvent('lite-signal', {
+          bubbles: true,
+          compose: true,
+          detail: {
+            name: 'toaster-show',
+            data: {
+              text: toast.type
+            }
           }
-        });
+        }));
         setTimeout(done, 200);
       };
 

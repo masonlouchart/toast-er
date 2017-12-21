@@ -11,10 +11,11 @@ addons:
     packages:
     - google-chrome-stable
 install:
-- npm install -g bower polymer-cli
+- npm install -g polymer-cli
 - npm install
-- bower install
+- polymer install
 script:
+- polymer lint
 - xvfb-run polymer test
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default'; fi
 - bash ./gpages_build.sh masonlouchart toast-er "Mason Louchart" louchart.mason@gmail.com

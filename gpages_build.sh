@@ -36,6 +36,7 @@ git checkout --orphan gh-pages
 git rm -rf -q .
 
 # use bower to install runtime deployment
+npm install -g bower
 bower cache clean $repo # ensure we're getting the latest from the desired branch.
 git show ${branch}:bower.json > bower.json
 echo "{
